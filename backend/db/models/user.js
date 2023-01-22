@@ -34,13 +34,13 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static async signup({ username,
-      // firstName, lastName,
+      firstName, lastName,
       email, password }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
         username,
-        // firstName,
-        // lastName,
+        firstName,
+        lastName,
         email,
         hashedPassword
       });
@@ -66,12 +66,12 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
       },
-      // firstName: {
-      //   type: DataTypes.STRING
-      // },
-      // lastName: {
-      //   type: DataTypes.STRING
-      // },
+      firstName: {
+        type: DataTypes.STRING
+      },
+      lastName: {
+        type: DataTypes.STRING
+      },
       email: {
         type: DataTypes.STRING,
         allowNull: false,

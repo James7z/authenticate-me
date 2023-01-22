@@ -31,11 +31,11 @@ router.post(
     validateSignup,
     async (req, res) => {
         const { username,
-            // firstName, lastName,
+            firstName, lastName,
             email, password } = req.body;
         const user = await User.signup({
             username,
-            //firstName, lastName,
+            firstName, lastName,
             email, password
         });
 
