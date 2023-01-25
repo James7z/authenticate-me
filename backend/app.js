@@ -68,6 +68,7 @@ app.use((err, _req, _res, next) => {
     if (err instanceof ValidationError) {
         err.errors = err.errors.map((e) => e.message);
         err.title = 'Validation error';
+        if (err.errors.includes("email must be unique")) err.status = 403;
     }
     next(err);
 });
