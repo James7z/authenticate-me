@@ -229,7 +229,7 @@ router.post('/:spotId/images', requireAuth, spotIdCheck, async (req, res, next) 
 })
 
 //Edit a Spot
-router.put('/:spotId', spotIdCheck, validateSpot, async (req, res, next) => {
+router.put('/:spotId', requireAuth, spotIdCheck, validateSpot, async (req, res, next) => {
     const spotId = req.params.spotId;
     const spot = await Spot.findByPk(spotId);
 
@@ -238,5 +238,19 @@ router.put('/:spotId', spotIdCheck, validateSpot, async (req, res, next) => {
     res.json(spot);
 
 })
+
+//Delete a spot
+router.delete('/:spotId', requireAuth, spotIdCheck, async (req, res, next) => {
+    const spotId = req.params.spotId;
+    const spot = await Spot.findByPk(spotId);
+
+    await spot.destroy();
+
+    res.json({
+        "message": "Successfully deleted",
+        "statusCode": 200
+    })
+})
+
 
 module.exports = router;
