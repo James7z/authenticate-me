@@ -3,7 +3,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 
 const { restoreUser } = require('../../utils/auth.js');
-const { User, Spot } = require('../../db/models');
+const { User, Spot, Booking, Review } = require('../../db/models');
 
 router.use(restoreUser);
 
@@ -16,13 +16,13 @@ router.use('/users', usersRouter);
 //     res.json({ requestBody: req.body });
 // });
 //Test the database
-// router.get('/test', async function (req, res) {
+router.get('/test', async function (req, res) {
 
-//     const testRes = await Spot.findByPk(1, {
-//         include: [{ model: User }]
-//     });
-//     res.json(testRes)
-// })
+    const testRes = await Spot.findByPk(1, {
+        include: [{ model: Review }]
+    });
+    res.json(testRes)
+})
 
 // const { setTokenCookie } = require('../../utils/auth.js');
 // const { User } = require('../../db/models');

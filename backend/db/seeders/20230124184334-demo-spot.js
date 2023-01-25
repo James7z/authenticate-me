@@ -11,6 +11,7 @@ module.exports = {
     options.tableName = 'Spots';
     return queryInterface.bulkInsert(options, [
       {
+        id: 1,
         ownerId: 1,
         address: '512 Demo Ave',
         city: 'New Smyrna Beach',
@@ -23,6 +24,7 @@ module.exports = {
         price: 223
       },
       {
+        id: 2,
         ownerId: 1,
         address: '2705 S Demo Ave',
         city: 'Daytona Beach',
@@ -35,6 +37,7 @@ module.exports = {
         price: 357
       },
       {
+        id: 3,
         ownerId: 2,
         address: '1180 Fake St',
         city: 'Austin',
@@ -47,6 +50,7 @@ module.exports = {
         price: 258
       },
       {
+        id: 4,
         ownerId: 2,
         address: '1000 Real St',
         city: 'Springfield',
@@ -59,6 +63,7 @@ module.exports = {
         price: 350
       },
       {
+        id: 5,
         ownerId: 3,
         address: '2000 Fake Ave',
         city: 'Puerto Morelos',
@@ -77,7 +82,7 @@ module.exports = {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['Demo Suites 1', 'Demo Suites 2', 'Demo Suites 3', 'Demo Suites 4', 'Demo Suites 5',] }
+      id: { [Op.in]: [1, 2, 3, 4, 5,] }
     }, {});
   }
 };
