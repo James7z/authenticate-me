@@ -68,7 +68,14 @@ app.use((err, _req, _res, next) => {
     if (err instanceof ValidationError) {
         err.errors = err.errors.map((e) => e.message);
         err.title = 'Validation error';
-        if (err.errors.includes("email must be unique")) err.status = 403;
+        console.log(err.errors);
+        for (const i in err.errors) {
+            if (err.errors[i] === "email must be unique") err.errors[i] = "User with that email already exists";
+            if (err.errors[i] === "username must be unique") err.errors[i] = "User already exists";
+        }
+
+        if (err.errors.includes("User with that email already exists")) err.status = 403;
+        if (err.errors.includes("User already exists")) err.status = 403;
     }
     next(err);
 });

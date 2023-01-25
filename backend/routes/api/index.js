@@ -18,9 +18,10 @@ router.use('/users', usersRouter);
 //Test the database
 router.get('/test', async function (req, res) {
 
-    const testRes = await SpotImage.findByPk(1, {
-        include: [{ model: Spot }]
-    });
+    // const testRes = await SpotImage.findByPk(1, {
+    //     include: [{ model: Spot }]
+    // });
+    const testRes = await User.findAll();
     res.json(testRes)
 })
 
