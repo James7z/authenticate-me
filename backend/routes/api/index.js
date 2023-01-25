@@ -3,7 +3,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 
 const { restoreUser } = require('../../utils/auth.js');
-const { User, Spot, Booking, Review } = require('../../db/models');
+const { User, Spot, Booking, Review, ReviewImage } = require('../../db/models');
 
 router.use(restoreUser);
 
@@ -18,8 +18,8 @@ router.use('/users', usersRouter);
 //Test the database
 router.get('/test', async function (req, res) {
 
-    const testRes = await Spot.findByPk(1, {
-        include: [{ model: Review }]
+    const testRes = await Review.findByPk(1, {
+        include: [{ model: ReviewImage }]
     });
     res.json(testRes)
 })
