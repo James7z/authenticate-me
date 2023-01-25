@@ -3,6 +3,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 
 const { restoreUser } = require('../../utils/auth.js');
+const { User, Spot, Booking, Review, ReviewImage, SpotImage } = require('../../db/models');
 
 router.use(restoreUser);
 
@@ -14,7 +15,14 @@ router.use('/users', usersRouter);
 // router.post('/test', function (req, res) {
 //     res.json({ requestBody: req.body });
 // });
+//Test the database
+router.get('/test', async function (req, res) {
 
+    const testRes = await SpotImage.findByPk(1, {
+        include: [{ model: Spot }]
+    });
+    res.json(testRes)
+})
 
 // const { setTokenCookie } = require('../../utils/auth.js');
 // const { User } = require('../../db/models');
