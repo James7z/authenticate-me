@@ -64,7 +64,7 @@ const spotIdCheck = async (req, res, next) => {
     const spotId = req.params.spotId
     const spot = await Spot.findByPk(spotId);
     if (!spot) {
-        res.status(404).json({
+        return res.status(404).json({
             "message": "Spot couldn't be found",
             "statusCode": 404
         })
@@ -78,7 +78,7 @@ const spotIdCheck = async (req, res, next) => {
         err.status = 401;
         return next(err);
     }
-    next();
+    return next();
 }
 
 // Get all Spots
