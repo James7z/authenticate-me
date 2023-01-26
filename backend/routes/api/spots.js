@@ -1,6 +1,6 @@
 const express = require('express')
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, Review, SpotImage, Sequelize } = require('../../db/models');
+const { User, Spot, Review, SpotImage, Sequelize, Booking } = require('../../db/models');
 const router = express.Router();
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -69,8 +69,13 @@ const spotIdCheck = async (req, res, next) => {
             "statusCode": 404
         })
     }
-    const { user } = req;
+    return next();
+}
 
+const userIdCheck = async (req, res, next) => {
+    const { user } = req;
+    const spotId = req.params.spotId
+    const spot = await Spot.findByPk(spotId);
     if (user.id != spot.ownerId) {
         const err = new Error('Authentication required');
         err.title = 'Authentication required';
@@ -98,7 +103,7 @@ router.get('/', async (req, res) => {
 
     let spotsList = [];
 
-    spots.forEach(spot => spotsList.push(spot.toJSON()));
+    spots.forEach(spot => spotsList.push(spot.toJSON())); // POJO obj
     //console.log(spotsList)
 
     spotsList.forEach(spot => {
@@ -108,7 +113,7 @@ router.get('/', async (req, res) => {
                 //console.log(typeof review.stars)
                 return sum += +review.stars;
             }, 0);
-            console.log(total)
+            //console.log(total)
             spot.avgStarRating = total / spot.Reviews.length;
         } else spot.avgStarRating = 'No Review for this spot';
 
@@ -215,7 +220,7 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
 
 
 //Add an Image to a Spot based on the Spot's id
-router.post('/:spotId/images', requireAuth, spotIdCheck, async (req, res, next) => {
+router.post('/:spotId/images', requireAuth, spotIdCheck, userIdCheck, async (req, res, next) => {
     const spotId = req.params.spotId
 
     const { url, preview } = req.body;
@@ -229,7 +234,7 @@ router.post('/:spotId/images', requireAuth, spotIdCheck, async (req, res, next) 
 })
 
 //Edit a Spot
-router.put('/:spotId', spotIdCheck, validateSpot, async (req, res, next) => {
+router.put('/:spotId', requireAuth, spotIdCheck, userIdCheck, validateSpot, async (req, res, next) => {
     const spotId = req.params.spotId;
     const spot = await Spot.findByPk(spotId);
 
@@ -237,6 +242,73 @@ router.put('/:spotId', spotIdCheck, validateSpot, async (req, res, next) => {
 
     res.json(spot);
 
+})
+
+//Delete a spot
+router.delete('/:spotId', requireAuth, spotIdCheck, userIdCheck, async (req, res, next) => {
+    const spotId = req.params.spotId;
+    const spot = await Spot.findByPk(spotId);
+
+    await spot.destroy();
+
+    res.json({
+        "message": "Successfully deleted",
+        "statusCode": 200
+    })
+})
+
+//Create a Booking from a Spot based on the Spot's id
+router.post('/:spotId/bookings', requireAuth, spotIdCheck, async (req, res, next) => {
+    const { user } = req;
+    const spotId = req.params.spotId
+    const userId = user.id
+    const spot = await Spot.findByPk(spotId, {
+        include: [{
+            model: Booking,
+            attributes: ["startDate", "endDate"]
+        }]
+    });
+    if (userId == spot.ownerId) {
+        const err = new Error('Authentication required');
+        err.title = 'Authentication required';
+        err.errors = ['The owner of the spot could not book the spot'];
+        err.status = 401;
+        return next(err);
+    }
+
+    const { startDate, endDate } = req.body;
+    // let startDateD = new Date(startDate);
+    // console.log(startDateD);
+    const startDateVal = (new Date(startDate)).getTime();
+    const endDateVal = (new Date(endDate)).getTime();
+    if (endDateVal <= startDateVal) {
+        res.status(400).json({
+            "message": "Validation error",
+            "statusCode": 400,
+            "errors": [
+                "endDate cannot be on or before startDate"
+            ]
+        })
+    }
+
+    for (let booking of spot.Bookings) {
+        let exitsStartDateVal = (new Date(booking.startDate)).getTime();
+        let exitsEndDateVal = (new Date(booking.endDate)).getTime();
+        if (startDateVal > exitsEndDateVal || endDateVal < exitsStartDateVal) { }
+        else {
+            return res.status(403).json({
+                "message": "Sorry, this spot is already booked for the specified dates",
+                "statusCode": 403,
+                "errors": [
+                    "Start date conflicts with an existing booking",
+                    "End date conflicts with an existing booking"
+                ]
+            })
+        }
+
+    }
+    let newBooking = await Booking.create({ spotId, userId, startDate, endDate });
+    res.json({ newBooking })
 })
 
 module.exports = router;
