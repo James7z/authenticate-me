@@ -21,7 +21,7 @@ const reviewIdCheck = async (req, res, next) => {
 const userIdCheck = async (req, res, next) => {
     const { user } = req;
     const reviewId = req.params.reviewId
-    const review = await review.findByPk(reviewId);
+    const review = await Review.findByPk(reviewId, { attributes: ['id', 'userId'] });
     if (user.id != review.userId) {
         const err = new Error('Authentication required');
         err.title = 'Authentication required';
@@ -31,6 +31,23 @@ const userIdCheck = async (req, res, next) => {
     }
     return next();
 }
+
+const validReview = [
+    check('review')
+        .notEmpty()
+        .withMessage('Review text is required'),
+    check('review')
+        .isLength({ max: 500 })
+        .withMessage('Please provide a review with 500 characters'),
+    check('stars')
+        .custom(value => {
+            if (isNaN(value) || !Number.isInteger(+value) || +value > 5 || + value < 1) return Promise.reject();
+            return true;
+        })
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+]
+
 
 //Get all of the Current User's Reviews
 router.get('/current', requireAuth, async (req, res) => {
@@ -76,6 +93,50 @@ router.get('/current', requireAuth, async (req, res) => {
     res.json({
         "Reviews": reviewsList
     });
+})
+
+//Add an Image to a Review based on the Review's id
+
+router.post('/:reviewId/images', requireAuth, reviewIdCheck, userIdCheck, async (req, res) => {
+    const { user } = req;
+    const reviewId = req.params.reviewId
+    const review = await Review.findByPk(reviewId, {
+        include: [{
+            model: ReviewImage
+        }]
+    });
+    if (review.ReviewImages.length >= 10) {
+        return res.status(403).json({
+            "message": "Maximum number of images for this resource was reached",
+            "statusCode": 403
+        })
+    }
+    const { url } = req.body;
+    let newReviewImage = await ReviewImage.create({
+        url, reviewId
+    })
+
+    newReviewImage = newReviewImage.toJSON();
+    delete (newReviewImage.reviewId);
+    delete (newReviewImage.createdAt);
+    delete (newReviewImage.updatedAt);
+    res.json(newReviewImage)
+})
+
+
+//Edit a Review
+router.put('/:reviewId', requireAuth, reviewIdCheck, userIdCheck, validReview, async (req, res) => {
+
+    const reviewId = req.params.reviewId
+    let reviewSpot = await Review.findByPk(reviewId);
+    const { user } = req;
+    const userId = user.id
+
+    const { review, stars } = req.body;
+
+    await reviewSpot.update({ reviewId, userId, review, stars });
+
+    return res.json(reviewSpot)
 })
 
 

@@ -59,6 +59,21 @@ const validateSpot = [
     handleValidationErrors
 ]
 
+const validReview = [
+    check('review')
+        .notEmpty()
+        .withMessage('Review text is required'),
+    check('review')
+        .isLength({ max: 500 })
+        .withMessage('Please provide a review with 500 characters'),
+    check('stars')
+        .custom(value => {
+            if (isNaN(value) || !Number.isInteger(+value) || +value > 5 || + value < 1) return Promise.reject();
+            return true;
+        })
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+]
 //spot id check
 const spotIdCheck = async (req, res, next) => {
     const spotId = req.params.spotId
@@ -362,4 +377,30 @@ router.get('/:spotId/reviews', spotIdCheck, async (req, res, next) => {
     res.json({ "Reviews": reviews });
 })
 
+
+//Create a Review for a Spot based on the Spot's id
+router.post('/:spotId/reviews', requireAuth, spotIdCheck, validReview, async (req, res, next) => {
+    const { user } = req;
+    const spotId = req.params.spotId
+    const userId = user.id
+    const { review, stars } = req.body;
+    const spotReview = await Spot.findByPk(spotId, {
+        include: [{
+            model: Review,
+            attributes: ['id', 'userId', 'spotId'],
+            where: { userId: userId }
+        }],
+    });
+
+    if (spotReview) {
+        return res.status(403).json({
+            "message": "User already has a review for this spot",
+            "statusCode": 403
+        })
+    }
+
+    const newReview = await Review.create({ userId, spotId, review, stars });
+
+    res.json(newReview);
+})
 module.exports = router;

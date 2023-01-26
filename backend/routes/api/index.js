@@ -29,7 +29,7 @@ router.get('/test', async function (req, res) {
     // const testRes = await SpotImage.findByPk(1, {
     //     include: [{ model: Spot }]
     // });
-    const testRes = await Booking.findAll({});
+    const testRes = await ReviewImage.findAll({});
     res.json(testRes)
 })
 
