@@ -2,6 +2,7 @@ const router = require('express').Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const spotsRouter = require('./spots.js');
+const bookingsRouter = require('./bookings.js');
 
 const { restoreUser } = require('../../utils/auth.js');
 const { User, Spot, Booking, Review, ReviewImage, SpotImage } = require('../../db/models');
@@ -14,6 +15,8 @@ router.use('/users', usersRouter);
 
 router.use('/spots', spotsRouter);
 
+router.use('/bookings', bookingsRouter);
+
 //Test the API Router
 // router.post('/test', function (req, res) {
 //     res.json({ requestBody: req.body });
@@ -24,7 +27,18 @@ router.get('/test', async function (req, res) {
     // const testRes = await SpotImage.findByPk(1, {
     //     include: [{ model: Spot }]
     // });
-    const testRes = await User.findAll();
+    const testRes = await Spot.findAll({
+        include: [{
+            model: Review,
+            attributes: ["stars"]
+        },
+        {
+            model: SpotImage,
+            attributes: ["url", "preview"],
+
+        }
+        ],
+    });
     res.json(testRes)
 })
 
