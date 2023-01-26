@@ -24,18 +24,18 @@ module.exports = {
       },
       {
         spotId: 2,
-        userId: 1,
+        userId: 3,
         review: 'Demo Review 3 Abcde avg',
         stars: 3
       },
       {
-        spotId: 3,
+        spotId: 5,
         userId: 1,
         review: 'Demo Review Abcde 4 bad',
         stars: 2
       },
       {
-        spotId: 3,
+        spotId: 5,
         userId: 2,
         review: 'Demo Review Abcde 5 great',
         stars: 5
