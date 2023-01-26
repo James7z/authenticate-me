@@ -1,6 +1,6 @@
 const express = require('express')
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, Review, SpotImage, Sequelize, Booking } = require('../../db/models');
+const { User, Spot, Review, SpotImage, Sequelize, Booking, ReviewImage } = require('../../db/models');
 const router = express.Router();
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -230,7 +230,7 @@ router.post('/:spotId/images', requireAuth, spotIdCheck, userIdCheck, async (req
     delete newSpotImage.spotId;
     delete newSpotImage.updatedAt;
     delete newSpotImage.createdAt;
-    res.status(200).json(newSpotImage);
+    return res.status(200).json(newSpotImage);
 })
 
 //Edit a Spot
@@ -282,7 +282,7 @@ router.post('/:spotId/bookings', requireAuth, spotIdCheck, async (req, res, next
     const startDateVal = (new Date(startDate)).getTime();
     const endDateVal = (new Date(endDate)).getTime();
     if (endDateVal <= startDateVal) {
-        res.status(400).json({
+        return res.status(400).json({
             "message": "Validation error",
             "statusCode": 400,
             "errors": [
@@ -313,7 +313,6 @@ router.post('/:spotId/bookings', requireAuth, spotIdCheck, async (req, res, next
 
 
 //Get all Bookings for a Spot based on the Spot's id
-
 router.get('/:spotId/bookings', requireAuth, spotIdCheck, async (req, res, next) => {
     const { user } = req;
     const spotId = req.params.spotId
@@ -344,6 +343,23 @@ router.get('/:spotId/bookings', requireAuth, spotIdCheck, async (req, res, next)
 })
 
 
+//Get all Reviews by a Spot's id
+router.get('/:spotId/reviews', spotIdCheck, async (req, res, next) => {
+    const spotId = req.params.spotId;
+    const reviews = await Review.findAll({
+        where: {
+            spotId
+        },
+        include: [{
+            model: User,
+            attributes: ['id', 'firstName', 'lastName']
+        }, {
+            model: ReviewImage,
+            attributes: ['id', 'url']
+        }]
+    })
 
+    res.json({ "Reviews": reviews });
+})
 
 module.exports = router;
