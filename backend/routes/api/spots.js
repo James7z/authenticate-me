@@ -2,7 +2,7 @@ const express = require('express')
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, Review, SpotImage, Sequelize, Booking, ReviewImage } = require('../../db/models');
 const router = express.Router();
-const { check } = require('express-validator');
+const { check, query } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const validateSpot = [
@@ -24,8 +24,7 @@ const validateSpot = [
     check('lat')
         .custom(value => {
             //console.log(typeof value, value);
-            if (isNaN(value)) return Promise.reject();
-            if (value > 90 || value < -90) return Promise.reject();
+            if (isNaN(value) || value > 90 || value < -90) return Promise.reject();
             return true;
         })
         .withMessage("Latitude is not valid"),
@@ -59,6 +58,82 @@ const validateSpot = [
     handleValidationErrors
 ]
 
+const validReview = [
+    check('review')
+        .notEmpty()
+        .withMessage('Review text is required'),
+    check('review')
+        .isLength({ max: 500 })
+        .withMessage('Please provide a review with 500 characters'),
+    check('stars')
+        .custom(value => {
+            if (isNaN(value) || !Number.isInteger(+value) || +value > 5 || + value < 1) return Promise.reject();
+            return true;
+        })
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+]
+
+const validQuery = [
+    query('page')
+        .optional()
+        .custom(value => {
+            if (isNaN(value) || !Number.isInteger(+value) || +value > 10 || +value < 0) return Promise.reject();
+            return true;
+        })
+        .withMessage("Page must be an integer from 0 to 10"),
+    query('size')
+        .optional()
+        .custom(value => {
+            if (isNaN(value) || !Number.isInteger(+value) || +value > 20 || +value < 0) return Promise.reject();
+            return true;
+        })
+        .withMessage("Size must be an integer from 0 to 20"),
+    query('minLat')
+        .optional()
+        .custom(value => {
+            if (isNaN(value) || value > 90 || value < -90) return Promise.reject();
+            return true;
+        })
+        .withMessage("Minimum latitude is invalid"),
+    query('maxLat')
+        .optional()
+        .custom(value => {
+            if (isNaN(value) || value > 90 || value < -90) return Promise.reject();
+            return true;
+        })
+        .withMessage("Maxium latitude is invalid"),
+    query('minLng')
+        .optional()
+        .custom(value => {
+            if (isNaN(value) || value >= 180 || value < -180) return Promise.reject();
+            return true;
+        })
+        .withMessage("Minimum longitude is invalid"),
+    query('maxLng')
+        .optional()
+        .custom(value => {
+            if (isNaN(value) || value >= 180 || value < -180) return Promise.reject();
+            return true;
+        })
+        .withMessage("Maxium longitude is invalid"),
+    query('minPrice')
+        .optional()
+        .custom(value => {
+            if (isNaN(value) || value < 0) return Promise.reject();
+            return true;
+        })
+        .withMessage("Maximum price must be greater than or equal to 0"),
+    query('maxPrice')
+        .optional()
+        .custom(value => {
+            if (isNaN(value) || value < 0) return Promise.reject();
+            return true;
+        })
+        .withMessage("Maximum price must be greater than or equal to 0"),
+    handleValidationErrors
+]
+
 //spot id check
 const spotIdCheck = async (req, res, next) => {
     const spotId = req.params.spotId
@@ -87,7 +162,34 @@ const userIdCheck = async (req, res, next) => {
 }
 
 // Get all Spots
-router.get('/', async (req, res) => {
+router.get('/', validQuery, async (req, res) => {
+    const { Op } = require('sequelize');
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+    const pagination = {};
+
+    if (!page) page = 0;
+    if (!size) size = 20;
+    pagination.limit = size;
+    pagination.offset = page * size;
+
+    const where = {};
+    let latGte = {};
+    let latLte = {};
+    let lngGte = {};
+    let lngLte = {};
+    let priceGte = {}
+    let priceLte = {};
+
+    if (minLat) latGte = { [Op.gte]: minLat };
+    if (maxLat) latLte = { [Op.lte]: maxLat };
+    if (minLat || maxLat) where.Lat = { ...latGte, ...latLte };
+    if (minLng) lngGte = { [Op.gte]: minLng };
+    if (maxLng) lngLte = { [Op.lte]: maxLng };
+    if (minLng || maxLng) where.Lng = { ...lngGte, ...lngLte };
+    if (minPrice) priceGte = { [Op.gte]: minPrice };
+    if (maxPrice) priceLte = { [Op.lte]: maxPrice };
+    if (minPrice || maxPrice) where.price = { ...priceGte, ...priceLte };
+
     const spots = await Spot.findAll({
         include: [{
             model: Review,
@@ -99,6 +201,8 @@ router.get('/', async (req, res) => {
 
         }
         ],
+        where,
+        ...pagination
     })
 
     let spotsList = [];
@@ -362,4 +466,30 @@ router.get('/:spotId/reviews', spotIdCheck, async (req, res, next) => {
     res.json({ "Reviews": reviews });
 })
 
+
+//Create a Review for a Spot based on the Spot's id
+router.post('/:spotId/reviews', requireAuth, spotIdCheck, validReview, async (req, res, next) => {
+    const { user } = req;
+    const spotId = req.params.spotId
+    const userId = user.id
+    const { review, stars } = req.body;
+    const spotReview = await Spot.findByPk(spotId, {
+        include: [{
+            model: Review,
+            attributes: ['id', 'userId', 'spotId'],
+            where: { userId: userId }
+        }],
+    });
+
+    if (spotReview) {
+        return res.status(403).json({
+            "message": "User already has a review for this spot",
+            "statusCode": 403
+        })
+    }
+
+    const newReview = await Review.create({ userId, spotId, review, stars });
+
+    res.json(newReview);
+})
 module.exports = router;
