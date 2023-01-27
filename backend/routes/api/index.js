@@ -29,14 +29,14 @@ router.use('/review-images', reviewImagesRouter);
 //     res.json({ requestBody: req.body });
 // });
 //Test the database
-router.get('/test', async function (req, res) {
+// router.get('/test', async function (req, res) {
 
-    // const testRes = await SpotImage.findByPk(1, {
-    //     include: [{ model: Spot }]
-    // });
-    const testRes = await ReviewImage.findAll({});
-    res.json(testRes)
-})
+//     // const testRes = await SpotImage.findByPk(1, {
+//     //     include: [{ model: Spot }]
+//     // });
+//     const testRes = await Review.findAll({});
+//     res.json(testRes)
+// })
 
 // const { setTokenCookie } = require('../../utils/auth.js');
 // const { User } = require('../../db/models');
