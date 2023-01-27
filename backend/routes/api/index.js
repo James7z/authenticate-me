@@ -3,7 +3,9 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const spotsRouter = require('./spots.js');
 const bookingsRouter = require('./bookings.js');
-const reviewsRouter = require('./review.js')
+const reviewsRouter = require('./review.js');
+const spotImagesRouter = require('./spotImage.js');
+const reviewImagesRouter = require('./reviewImage.js');
 const { restoreUser } = require('../../utils/auth.js');
 const { User, Spot, Booking, Review, ReviewImage, SpotImage } = require('../../db/models');
 
@@ -19,6 +21,9 @@ router.use('/bookings', bookingsRouter);
 
 router.use('/reviews', reviewsRouter);
 
+router.use('/spot-images', spotImagesRouter);
+
+router.use('/review-images', reviewImagesRouter);
 //Test the API Router
 // router.post('/test', function (req, res) {
 //     res.json({ requestBody: req.body });
