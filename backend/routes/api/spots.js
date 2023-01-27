@@ -230,7 +230,7 @@ router.get('/', validQuery, async (req, res) => {
         delete (spot.Reviews);
         delete (spot.SpotImages);
     })
-    return res.json(spotsList);
+    return res.json({ "Spots": spotsList });
 })
 
 //Get all Spots owned by the Current User
@@ -269,7 +269,7 @@ router.get('/current', requireAuth, async (req, res) => {
         delete (spot.Reviews);
         delete (spot.SpotImages);
     })
-    return res.json(spotsList);
+    return res.json({ "Spots": spotsList });
 })
 
 //Get details of a Spot from an id
