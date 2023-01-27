@@ -182,10 +182,10 @@ router.get('/', validQuery, async (req, res) => {
 
     if (minLat) latGte = { [Op.gte]: minLat };
     if (maxLat) latLte = { [Op.lte]: maxLat };
-    if (minLat || maxLat) where.Lat = { ...latGte, ...latLte };
+    if (minLat || maxLat) where.lat = { ...latGte, ...latLte };
     if (minLng) lngGte = { [Op.gte]: minLng };
     if (maxLng) lngLte = { [Op.lte]: maxLng };
-    if (minLng || maxLng) where.Lng = { ...lngGte, ...lngLte };
+    if (minLng || maxLng) where.lng = { ...lngGte, ...lngLte };
     if (minPrice) priceGte = { [Op.gte]: minPrice };
     if (maxPrice) priceLte = { [Op.lte]: maxPrice };
     if (minPrice || maxPrice) where.price = { ...priceGte, ...priceLte };
