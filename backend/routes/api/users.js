@@ -53,7 +53,7 @@ router.post(
         userRes.token = await setTokenCookie(res, user);
 
         return res.json({
-            user: user
+            user: userRes
         });
     }
 );
