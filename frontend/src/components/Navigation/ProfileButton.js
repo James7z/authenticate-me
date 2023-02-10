@@ -20,6 +20,7 @@ function ProfileButton({ user }) {
                 setShowMenu(false);
             }
         };
+        console.log("useEffect run")
 
         document.addEventListener('click', closeMenu);
 
