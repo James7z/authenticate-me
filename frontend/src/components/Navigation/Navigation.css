@@ -8,18 +8,25 @@
     margin: 20px;
     padding: 10px;
     list-style-type: none;
+
 }
 
-.navLogo {
+.navigation a {
+    text-decoration: none;
+    color: red;
+    font-weight: 600;
+}
+
+.nav-logo {
     height: 21px;
     width: 21px;
 }
 
-.login_button {
+.login-button {
     display: inline-flex;
     border-radius: 3px;
     border: 1px;
-
+    cursor: pointer;
     text-decoration: none;
     align-items: center;
     text-align: center;

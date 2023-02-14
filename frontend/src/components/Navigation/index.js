@@ -12,9 +12,9 @@ function Navigation({ isLoaded }) {
         <ul className='navigation'>
             <li>
                 <NavLink exact to="/">
-                    <div className='logoContainer'>
-                        <img src={logo} alt="logo" className='navLogo' />
-                        J-Airbnb
+                    <div className='logo_container'>
+                        <img src={logo} alt="logo" className='nav-logo' />
+                        <span> J-Airbnb </span>
                     </div>
                 </NavLink>
             </li>

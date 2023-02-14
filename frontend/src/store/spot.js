@@ -10,8 +10,8 @@ export const getSpot = () => async dispatch => {
 
     if (response.ok) {
         const spotList = await response.json();
-        console.log("**********Spot List are:")
-        console.log(spotList)
+        //console.log("**********Spot List are:")
+        //console.log(spotList)
         dispatch(loadSpots(spotList));
     }
 };

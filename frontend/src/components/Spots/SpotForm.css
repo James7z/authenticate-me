@@ -1,0 +1,61 @@
+.primary-text {
+    display: flex;
+    font-weight: bold;
+    flex-direction: row;
+    justify-content: space-between;
+    width: auto;
+}
+
+.primary-text span {
+    display: inline;
+    margin: 3px;
+    font-size: 12pt;
+
+
+}
+
+.spot-nav {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+.nav-spot-card {
+    background-color: white;
+    border-radius: 3px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    max-height: 370px;
+    margin: 0 48px 28px;
+
+    padding: 4px 8px;
+    position: relative;
+    color: black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.spot-nav .spot-image {
+    height: 250px;
+    width: 270px;
+}
+
+.spot-image-container {
+    display: flex;
+    justify-content: center;
+}
+
+.spot-text-container {
+    width: auto;
+}
+
+.test {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
