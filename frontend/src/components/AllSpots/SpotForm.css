@@ -1,0 +1,28 @@
+.primary-text {
+    display: flex;
+    font-weight: bold;
+    justify-content: space-between;
+}
+
+.primary-text span {
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.spotNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-shrink: auto;
+}
+
+.spotNav .spotImage {
+    height: 270px;
+    width: 256px;
+}
+
+.spotImageCotainer {
+    display: flex;
+    justify-content: center;
+}
