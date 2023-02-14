@@ -3,5 +3,23 @@ label {
     color: rgb(46, 3, 3);
     font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
+    margin: 2px;
 
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+.log-in-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.demo-user-login-container {
+    display: flex;
+    justify-content: center;
 }

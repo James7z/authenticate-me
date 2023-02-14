@@ -1,8 +1,10 @@
-/* .signupForm {
-    min-height: 56px !important;
-    width: 100% !important;
-    border: none !important;
-    outline: none !important;
-    margin: 0px !important;
-    padding: 26px 36px 10px 12px !important;
-} */
+.sign-up-form {
+    display: flex;
+    flex-direction: column;
+    min-height: 56px;
+    width: auto;
+    border: none;
+    outline: none;
+    margin: 0px;
+    padding: 26px 36px 10px 12px;
+}

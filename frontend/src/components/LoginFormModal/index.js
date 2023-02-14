@@ -11,6 +11,7 @@ function LoginFormModal() {
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
@@ -24,10 +25,23 @@ function LoginFormModal() {
             );
     };
 
+    const handleSubmitDemo = (e) => {
+        setErrors([]);
+        return dispatch(sessionActions.login({ credential: "Demo-lition", password: "password" }))
+            .then(closeModal)
+            .catch(
+                async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors);
+                }
+            );
+
+    };
+
     return (
         <>
             <h1>Log In</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="log-in-form">
                 <ul>
                     {errors.map((error, idx) => (
                         <li key={idx}>{error}</li>
@@ -53,6 +67,9 @@ function LoginFormModal() {
                 </label>
                 <button type="submit">Log In</button>
             </form>
+            <div className="demo-user-login-container">
+                <button type="button" onClick={handleSubmitDemo}>Log In as Demo User</button>
+            </div>
         </>
     );
 }
