@@ -134,3 +134,42 @@
 .spot-details-review-card {
     margin: 2%;
 }
+
+/********************* create-spot-form ************/
+.create-spot-form-container {
+    display: flex;
+    justify-content: center;
+}
+
+.create-spot-form {
+    width: 40%;
+}
+
+.create-spot-form-lable-1 {
+    width: 100%;
+}
+
+.create-spot-form-lable-2 {
+    width: 50%;
+}
+
+.create-spot-form-2-column {
+    display: flex;
+    flex-direction: row;
+}
+
+.create-spot-form-2-column input {
+    width: 90%;
+}
+
+textarea {
+    height: 10vw
+}
+
+.create-spot-form-lable-1.create-spot-form-price {
+    width: 95%;
+}
+
+.create-spot-form-image {
+    margin: 5px;
+}

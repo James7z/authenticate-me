@@ -2,7 +2,6 @@
 
 const LOAD_SPOTS = 'spot/LOAD';
 const LOAD_SPOT_DETAILS = 'spot/LOAD_DETAILS ';
-
 const LOAD_SPOT_REVIEWS = 'spot/LOAD_SPOT_REVIEWS';
 
 
