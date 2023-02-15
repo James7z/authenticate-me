@@ -39,4 +39,9 @@
     white-space: nowrap;
     padding: 8px;
     height: 20px;
+    position: relative;
+}
+
+.profile-dropdown {
+    position: absolute;
 }

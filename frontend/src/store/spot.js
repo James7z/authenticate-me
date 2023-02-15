@@ -3,6 +3,9 @@
 const LOAD_SPOTS = 'spot/LOAD';
 const LOAD_SPOT_DETAILS = 'spot/LOAD_DETAILS ';
 
+const LOAD_SPOT_REVIEWS = 'spot/LOAD_SPOT_REVIEWS';
+
+
 const loadSpots = spotList => ({
     type: LOAD_SPOTS,
     spotList
@@ -11,6 +14,11 @@ const loadSpots = spotList => ({
 const loadSpotDetails = spotDetails => ({
     type: LOAD_SPOT_DETAILS,
     spotDetails
+});
+
+const loadSpotReviews = reviewList => ({
+    type: LOAD_SPOT_REVIEWS,
+    reviewList
 });
 
 export const getSpot = () => async dispatch => {
@@ -35,7 +43,16 @@ export const getSpotDetails = (spotId) => async dispatch => {
     }
 };
 
+export const getSpotReviews = (spotId) => async dispatch => {
+    const response = await fetch(`/api/spots/${spotId}/reviews`);
 
+    if (response.ok) {
+        const reviewList = await response.json();
+        // console.log("**********Review List are:")
+        // console.log(reviewList)
+        dispatch(loadSpotReviews(reviewList));
+    }
+};
 
 const initialState = {};
 
@@ -67,7 +84,15 @@ export default function spotReducer(state = initialState, action) {
                 ...state,
                 singleSpot
             }
-
+        case LOAD_SPOT_REVIEWS:
+            const reviews = {};
+            action.reviewList.Reviews.forEach(review => reviews[review.id] = review);
+            // console.log("********reviews is ");
+            // console.log(reviews);
+            return {
+                ...state,
+                reviews
+            }
         default:
             return state;
     }
