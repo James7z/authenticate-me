@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import './Navigation.css';
+import { NavLink } from "react-router-dom";
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
@@ -14,6 +16,8 @@ function ProfileButton({ user }) {
         if (showMenu) return;
         setShowMenu(true);
     };
+    const currUser = useSelector(state => state.session.user);
+    const isLoggedIn = currUser !== null
 
     useEffect(() => {
         if (!showMenu) return;
@@ -41,7 +45,10 @@ function ProfileButton({ user }) {
 
     return (
         <>
-            <button onClick={openMenu}>
+            <NavLink to="/spots/new" className={"create-spot" + (isLoggedIn ? "" : " hidden")}>Create a New Spot</NavLink>
+
+            <button onClick={openMenu} className="login-button">
+                <i className="fas fa-bars" > </i>
                 <i className="fas fa-user-circle" />
             </button>
             <ul className={ulClassName} ref={ulRef}>
@@ -50,9 +57,11 @@ function ProfileButton({ user }) {
                         <li>{user.username}</li>
                         <li>{user.firstName} {user.lastName}</li>
                         <li>{user.email}</li>
+                        <li><NavLink to="/spots/current" className="manage-spot-link" >Manage Spots</NavLink></li>
                         <li>
                             <button onClick={logout}>Log Out</button>
                         </li>
+
                     </>
                 ) : (
                     <>

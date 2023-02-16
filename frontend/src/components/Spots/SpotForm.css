@@ -1,0 +1,185 @@
+.primary-text {
+    display: flex;
+    font-weight: bold;
+    flex-direction: row;
+    justify-content: space-between;
+    width: auto;
+}
+
+.primary-text span {
+    display: inline;
+    margin: 3px;
+    font-size: 12pt;
+
+
+}
+
+.spot-nav-container {
+    display: flex;
+    justify-content: center;
+}
+
+.spot-nav {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    align-items: center;
+    /* justify-content: space-around; */
+
+}
+
+.nav-spot-card {
+    background-color: white;
+    border-radius: 3px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    max-height: 400px;
+    margin: 0 10px 10px;
+    min-width: 20%;
+    padding: 4px 8px;
+    position: relative;
+    color: black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.spot-nav .spot-image {
+    height: 300px;
+    width: 320px;
+}
+
+.spot-image-container {
+    display: flex;
+    justify-content: center;
+}
+
+.spot-text-container {
+    width: auto;
+}
+
+/* spot details CSS */
+.spot-detail-container {
+    width: 90%;
+    margin: 0 4%;
+
+}
+
+.spot-detail-images-container {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 10px;
+    width: 100%;
+}
+
+.spot-detail-image-container-2 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 50%;
+}
+
+.spot-detail-preview-image-container {
+    width: 50%;
+    margin: 0px 10px;
+}
+
+.spot-detail-preview-image {
+    width: 100%;
+    height: 416px;
+
+}
+
+.spot-detail-image {
+    width: 48%;
+    height: 205px;
+    margin: 0px 2px;
+}
+
+.spot-details-info-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.spot-price-stars {
+    border: 2px solid;
+    margin: 15px 0 0 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.spot-reserve-button-container {
+    display: flex;
+    justify-content: center;
+    background-color: red;
+}
+
+.spot-reserve-button-container button {
+    background: red;
+    color: white;
+    border: none;
+}
+
+.spot-details-info-description {
+    width: 70%;
+}
+
+.spot-details-info-price-starts {
+
+    width: 20%
+}
+
+.spot-details-review-card {
+    margin: 2%;
+}
+
+/********************* create-spot-form ************/
+.create-spot-form-container {
+    display: flex;
+    justify-content: center;
+}
+
+.create-spot-form {
+    width: 40%;
+}
+
+.create-spot-form-lable-1 {
+    width: 100%;
+}
+
+.create-spot-form-lable-2 {
+    width: 50%;
+}
+
+.create-spot-form-2-column {
+    display: flex;
+    flex-direction: row;
+}
+
+.create-spot-form-2-column input {
+    width: 90%;
+}
+
+textarea {
+    height: 10vw
+}
+
+.create-spot-form-lable-1.create-spot-form-price {
+    width: 95%;
+}
+
+.create-spot-form-image {
+    margin: 5px;
+}
+
+/********** Delete spot  */
+.red-button {
+    background-color: red;
+    color: white;
+}
+
+.grey-button {
+    background-color: darkgray;
+}

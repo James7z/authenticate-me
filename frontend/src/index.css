@@ -1,1 +1,32 @@
 /* TODO Add site wide styles */
+body {
+    font-size: 14pt;
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 24pt;
+    font-weight: bold;
+}
+
+h2,
+h3 {
+    font-size: 18pt;
+    font-weight: bold;
+}
+
+button {
+    font-weight: normal;
+
+}
+
+nav a {
+    color: inherit;
+    text-decoration: none;
+}
+
+i {
+    margin: 1px;
+    height: 16px;
+    width: 24px;
+}
