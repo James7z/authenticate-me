@@ -1,6 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import OpenModalButton from "../OpenModalButton";
+
 import { useModal } from "../../context/Modal";
 import './SpotForm.css'
 import { useDispatch } from "react-redux";

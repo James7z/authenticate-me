@@ -20,7 +20,7 @@ module.exports = {
         lat: 29.040691316623363,
         lng: -80.89366493130787,
         name: 'Demo Suites 1',
-        description: 'Lorem ipsum dolor sit amet, ei meis malis invenire sed, causae iriure ei duo. Vix feugiat incorrupte no, eos debet persius debitis ea. Wisi quas consequat ea qui. Corpora partiendo no qui. Nam aeque consul facilis te, vitae petentium euripidis eos te. Virtute consequuntur signiferumque ex vis. Ex vix erat fabulas ocurreret, ei iusto consul referrentur est. At vel tation intellegebat, sit aperiri prodesset ea. Ad nullam reprehendunt conclusionemque has, ad quaestio argumentum voluptatibus per. An mea minim causae fastidii, consul labitur quo id, eam nihil nonumes veritus ea. Quo no nulla petentium, alii virtute ceteros et usu, an rebum possit nominati mei. Veri mandamus pertinacia ex eum.',
+        description: 'Lorem ipsum dolor sit amet, ei meis malis invenire sed, causae iriure ei duo. Vix feugiat incorrupte no, eos debet persius debitis ea. Wisi quas consequat ea qui. Corpora partiendo no qui. Nam aeque consul facilis te, vitae petentium euripidis eos te. Virtute consequuntur signiferumque ex vis. Ex vix erat fabulas ocurreret, ei iusto consul referrentur est. At vel tation intellegebat, sit aperiri prodesset ea.',
         price: 223
       },
       {
@@ -33,7 +33,7 @@ module.exports = {
         lat: 29.18532687589032,
         lng: -80.98118845900389,
         name: 'Demo Suites 2',
-        description: 'Lorem ipsum dolor sit amet, ei meis malis invenire sed, causae iriure ei duo. Vix feugiat incorrupte no, eos debet persius debitis ea. Wisi quas consequat ea qui. Corpora partiendo no qui. Nam aeque consul facilis te, vitae petentium euripidis eos te. Virtute consequuntur signiferumque ex vis. Ex vix erat fabulas ocurreret, ei iusto consul referrentur est. At vel tation intellegebat, sit aperiri prodesset ea. Ad nullam reprehendunt conclusionemque has, ad quaestio argumentum voluptatibus per. An mea minim causae fastidii, consul labitur quo id, eam nihil nonumes veritus ea. Quo no nulla petentium, alii virtute ceteros et usu, an rebum possit nominati mei. Veri mandamus pertinacia ex eum.',
+        description: 'Lorem ipsum dolor sit amet, ei meis malis invenire sed, causae iriure ei duo. Vix feugiat incorrupte no, eos debet persius debitis ea. Wisi quas consequat ea qui. Corpora partiendo no qui. Nam aeque consul facilis te, vitae petentium euripidis eos te. Virtute consequuntur signiferumque ex vis. Ex vix erat fabulas ocurreret, ei iusto consul referrentur est. At vel tation intellegebat, sit aperiri prodesset ea.',
         price: 357
       },
       {
@@ -45,7 +45,7 @@ module.exports = {
         lat: 30.271205702654612,
         lng: -97.72981723664698,
         name: 'Demo Suites 3',
-        description: 'Lorem ipsum dolor sit amet, ei meis malis invenire sed, causae iriure ei duo. Vix feugiat incorrupte no, eos debet persius debitis ea. Wisi quas consequat ea qui. Corpora partiendo no qui. Nam aeque consul facilis te, vitae petentium euripidis eos te. Virtute consequuntur signiferumque ex vis. Ex vix erat fabulas ocurreret, ei iusto consul referrentur est. At vel tation intellegebat, sit aperiri prodesset ea. Ad nullam reprehendunt conclusionemque has, ad quaestio argumentum voluptatibus per. An mea minim causae fastidii, consul labitur quo id, eam nihil nonumes veritus ea. Quo no nulla petentium, alii virtute ceteros et usu, an rebum possit nominati mei. Veri mandamus pertinacia ex eum.',
+        description: 'Lorem ipsum dolor sit amet, ei meis malis invenire sed, causae iriure ei duo. Vix feugiat incorrupte no, eos debet persius debitis ea. Wisi quas consequat ea qui. Corpora partiendo no qui. Nam aeque consul facilis te, vitae petentium euripidis eos te. Virtute consequuntur signiferumque ex vis. Ex vix erat fabulas ocurreret, ei iusto consul referrentur est. At vel tation intellegebat, sit aperiri prodesset ea.',
         price: 258
       },
       {
@@ -57,7 +57,7 @@ module.exports = {
         lat: 32.271205702654612,
         lng: -97.72981723664698,
         name: 'Demo Suites 4',
-        description: 'Lorem ipsum dolor sit amet, ei meis malis invenire sed, causae iriure ei duo. Vix feugiat incorrupte no, eos debet persius debitis ea. Wisi quas consequat ea qui. Corpora partiendo no qui. Nam aeque consul facilis te, vitae petentium euripidis eos te. Virtute consequuntur signiferumque ex vis. Ex vix erat fabulas ocurreret, ei iusto consul referrentur est. At vel tation intellegebat, sit aperiri prodesset ea. Ad nullam reprehendunt conclusionemque has, ad quaestio argumentum voluptatibus per. An mea minim causae fastidii, consul labitur quo id, eam nihil nonumes veritus ea. Quo no nulla petentium, alii virtute ceteros et usu, an rebum possit nominati mei. Veri mandamus pertinacia ex eum.',
+        description: 'Lorem ipsum dolor sit amet, ei meis malis invenire sed, causae iriure ei duo. Vix feugiat incorrupte no, eos debet persius debitis ea. Wisi quas consequat ea qui. Corpora partiendo no qui. Nam aeque consul facilis te, vitae petentium euripidis eos te. Virtute consequuntur signiferumque ex vis. Ex vix erat fabulas ocurreret, ei iusto consul referrentur est. At vel tation intellegebat, sit aperiri prodesset ea.',
         price: 350
       },
       {
@@ -69,7 +69,7 @@ module.exports = {
         lat: 32.271205702654612,
         lng: -97.72981723664698,
         name: 'Demo Suites 5',
-        description: 'Lorem ipsum dolor sit amet, ei meis malis invenire sed, causae iriure ei duo. Vix feugiat incorrupte no, eos debet persius debitis ea. Wisi quas consequat ea qui. Corpora partiendo no qui. Nam aeque consul facilis te, vitae petentium euripidis eos te. Virtute consequuntur signiferumque ex vis. Ex vix erat fabulas ocurreret, ei iusto consul referrentur est. At vel tation intellegebat, sit aperiri prodesset ea. Ad nullam reprehendunt conclusionemque has, ad quaestio argumentum voluptatibus per. An mea minim causae fastidii, consul labitur quo id, eam nihil nonumes veritus ea. Quo no nulla petentium, alii virtute ceteros et usu, an rebum possit nominati mei. Veri mandamus pertinacia ex eum.',
+        description: 'Lorem ipsum dolor sit amet, ei meis malis invenire sed, causae iriure ei duo. Vix feugiat incorrupte no, eos debet persius debitis ea. Wisi quas consequat ea qui. Corpora partiendo no qui. Nam aeque consul facilis te, vitae petentium euripidis eos te. Virtute consequuntur signiferumque ex vis. Ex vix erat fabulas ocurreret, ei iusto consul referrentur est. At vel tation intellegebat, sit aperiri prodesset ea.',
         price: 186
       },
     ], {});
