@@ -5,6 +5,7 @@ const LOAD_SPOT_DETAILS = 'spot/LOAD_DETAILS ';
 const LOAD_SPOT_REVIEWS = 'spot/LOAD_SPOT_REVIEWS';
 const ADD_A_SPOT = 'spot/ADD_A_SPOT ';
 const ADD_A_SPOT_IMAGE = 'spot/ADD_A_SPOT_IMAGE';
+const REMOVE_A_SPOT = 'spot/DELET_A_SPOT';
 
 
 
@@ -32,6 +33,11 @@ const addASpotImage = spotImage => ({
     type: ADD_A_SPOT_IMAGE,
     spotImage
 });
+
+const removeSpot = spotId => ({
+    type: REMOVE_A_SPOT,
+    spotId
+})
 
 export const getSpot = () => async dispatch => {
     const response = await fetch(`/api/spots`);
@@ -109,6 +115,36 @@ export const createASpotImage = ({ imageObj, spotId }) => async dispatch => {
     }
 };
 
+export const updateASpot = ({ payload, spotId }) => async dispatch => {
+    console.log("payload", payload)
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+
+    if (response.ok) {
+        const newSpot = await response.json();
+        // console.log("**********new Spot is:")
+        // console.log(newSpot)
+        dispatch(addASpot(newSpot));
+        return newSpot;
+    }
+};
+
+export const deleteASpot = (spotId) => async dispatch => {
+    console.log("***spotId is ", spotId)
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'DELETE'
+    });
+
+    if (response.ok) {
+        dispatch(removeSpot(spotId));
+    }
+};
+
+
+
 const initialState = {};
 
 const sortList = (list) => {
@@ -119,7 +155,8 @@ const sortList = (list) => {
 
 
 export default function spotReducer(state = initialState, action) {
-    const allSpots = {};
+    let allSpots = {};
+    let newState = {};
     switch (action.type) {
         case LOAD_SPOTS:
 
@@ -149,6 +186,11 @@ export default function spotReducer(state = initialState, action) {
                 ...state,
                 reviews
             }
+        case REMOVE_A_SPOT:
+            allSpots = { ...state.allSpots };
+            console.log("in action", action.spotId);
+            delete allSpots[action.spotId]
+            return { ...state, allSpots }
         case ADD_A_SPOT:
             return state
         case ADD_A_SPOT_IMAGE:

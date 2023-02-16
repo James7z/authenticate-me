@@ -1,24 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersSpot } from "../../store/spot";
 import { NavLink } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
 import './SpotForm.css'
+import DeleteSpotForm from "./DeleteSpotForm";
+
 
 export default function ManageSpots() {
     const dispatch = useDispatch();
     const spots = useSelector(state => {
         if (state.spots.allSpots) return Object.values(state.spots.allSpots)
-    })
+    });
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
-    //     console.log(spots)
-
-    useEffect(() => {
-        dispatch(getUsersSpot())
-    }, [dispatch])
 
     if (!spots) {
         return null;
     }
+
+
 
     return (
         <>
@@ -48,7 +49,16 @@ export default function ManageSpots() {
 
                                 </NavLink>
                                 <div>
-                                    <NavLink to={`/spots/${spot.id}/edit`} > Update </NavLink>
+                                    <NavLink to={`/spots/${spot.id}/edit`} ><button>Update</button>  </NavLink>
+                                    <span>       <OpenModalButton
+                                        buttonText="Delete"
+                                        modalComponent={<DeleteSpotForm spotId={spot.id} />}
+                                    // onButtonClick={() => console.log("Greeting initiated")}
+                                    // onModalClose={() => console.log("Greeting completed")}
+                                    />
+
+                                    </span>
+
 
                                 </div>
                             </div>

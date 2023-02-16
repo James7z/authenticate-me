@@ -173,3 +173,13 @@ textarea {
 .create-spot-form-image {
     margin: 5px;
 }
+
+/********** Delete spot  */
+.red-button {
+    background-color: red;
+    color: white;
+}
+
+.grey-button {
+    background-color: darkgray;
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { createASpot, createASpotImage, getSpotDetails } from "../../store/spot";
+import { createASpot, createASpotImage, getSpotDetails, updateASpot } from "../../store/spot";
 import './SpotForm.css'
 
 export default function SpotForm({ spot, formType }) {
@@ -28,14 +28,13 @@ export default function SpotForm({ spot, formType }) {
     const [errors, setErrors] = useState([]);
     const history = useHistory();
     let ownerId;
+    let isOwner = true;
     const currUser = useSelector(state => state.session.user);
     if (currUser) ownerId = currUser.id;
-    const spotDetails = useSelector(state => {
-        if (state.spots.singleSpot) return { ...state.spots.singleSpot }
-    })
-    // if (spotDetails) {
-    //     setSpotImage1(spotDetails.SpotImages[0].url)
-    // }
+    // const spotDetails = useSelector(state => {
+    //     if (state.spots.singleSpot) return { ...state.spots.singleSpot }
+    // })
+
     const { spotId } = useParams();
 
     let buttonStr = '';
@@ -45,8 +44,11 @@ export default function SpotForm({ spot, formType }) {
 
     }
 
+
     useEffect(() => {
-        if (formType === "Update you Spot") dispatch(getSpotDetails(spotId))
+        //if (formType === "Update you Spot") dispatch(getSpotDetails(spotId))
+        if (spotId) dispatch(getSpotDetails(spotId))
+        console.log("Use effect getSpotDetails ")
     }, [])
 
     useEffect(() => {
@@ -58,6 +60,7 @@ export default function SpotForm({ spot, formType }) {
         if (name.length === 0) errors.push("Spot title field is required");
         if (price < 0 || isNaN(price)) errors.push("Please provide a valid price")
         if (!spotImage1) errors.push("Please provide at least one photo to publish your spot.")
+        // console.log("Use effect check errors ")
 
         setErrors(errors)
     }, [country, address, city, state,
@@ -68,14 +71,15 @@ export default function SpotForm({ spot, formType }) {
 
         e.preventDefault();
         //console.log({ country, address })
+        const payload = { country, address, city, state, lat, lng, description, name, price };
+        const spotImages = [];
+        if (spotImage1) spotImages.push(spotImage1);
+        if (spotImage2) spotImages.push(spotImage2);
+        if (spotImage3) spotImages.push(spotImage3);
+        if (spotImage4) spotImages.push(spotImage4);
+        if (spotImage5) spotImages.push(spotImage5);
         if (formType === "Create a New Spot") {
-            const data = await dispatch(createASpot({ ownerId, country, address, city, state, lat, lng, description, name, price }))
-            const spotImages = [];
-            if (spotImage1) spotImages.push(spotImage1);
-            if (spotImage2) spotImages.push(spotImage2);
-            if (spotImage3) spotImages.push(spotImage3);
-            if (spotImage4) spotImages.push(spotImage4);
-            if (spotImage5) spotImages.push(spotImage5);
+            const data = await dispatch(createASpot(payload))
             if (spotImages.length > 0) {
                 spotImages.forEach(spotImage => {
                     const imageObj = { "url": spotImage, "preview": true }
@@ -85,12 +89,13 @@ export default function SpotForm({ spot, formType }) {
             history.push(`/spots/${data.id}`)
         }
 
-        // .catch(async (res) => {
-        //     data = await res.json();
-        //     if (data && data.errors) setErrors(data.errors);
-        // });
-        // console.log("new created spot  is")
-        // console.log(data)
+        if (formType === "Update you Spot") {
+            console.log("payload is ")
+            console.log(payload)
+            const data = await dispatch(updateASpot({ payload, spotId }))
+
+            history.push(`/spots/${data.id}`)
+        }
 
 
 
