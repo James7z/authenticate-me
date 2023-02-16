@@ -19,8 +19,8 @@ export default function SpotDetails() {
     reviewList = useSelector(state => {
         if (state.spots.reviews) return Object.values(state.spots.reviews).sort((a, b) => b.id - a.id)
     })
-    console.log("***reviewList is ")
-    console.log(reviewList)
+    // console.log("***reviewList is ")
+    // console.log(reviewList)
     const currUser = useSelector(state => state.session.user);
     //console.log(currUser)
 
@@ -40,6 +40,7 @@ export default function SpotDetails() {
         notOwner = currUser.id !== spot.ownerId;
     }
     const previewImage = spot.SpotImages.find(image => image.preview === true);
+    const previewImageUrl = previewImage ? previewImage.url : '';
     const spotImages = spot.SpotImages.filter(image => image.preview === false).slice(0, 4)
     //console.log(spotImages)
     const avgStars = typeof spot.avgStarRating === "number" ? Math.round(spot.avgStarRating * 10) / 10 : "New";
@@ -59,7 +60,7 @@ export default function SpotDetails() {
             <div>{spot.city + ', ' + spot.state + ', ' + spot.country}</div>
             <div className="spot-detail-images-container">
                 <div className="spot-detail-preview-image-container" >
-                    <img className="spot-detail-preview-image" src={previewImage.url}
+                    <img className="spot-detail-preview-image" src={previewImageUrl}
                         alt={"Preview image of " + spot.name}>
                     </img>
                 </div>

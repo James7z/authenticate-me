@@ -46,6 +46,7 @@ function ProfileButton({ user }) {
     return (
         <>
             <NavLink to="/spots/new" className={"create-spot" + (isLoggedIn ? "" : " hidden")}>Create a New Spot</NavLink>
+
             <button onClick={openMenu} className="login-button">
                 <i className="fas fa-bars" > </i>
                 <i className="fas fa-user-circle" />
@@ -56,9 +57,11 @@ function ProfileButton({ user }) {
                         <li>{user.username}</li>
                         <li>{user.firstName} {user.lastName}</li>
                         <li>{user.email}</li>
+                        <li><NavLink to="/spots/current" className="manage-spot-link" >Manage Spots</NavLink></li>
                         <li>
                             <button onClick={logout}>Log Out</button>
                         </li>
+
                     </>
                 ) : (
                     <>

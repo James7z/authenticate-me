@@ -1,8 +1,11 @@
-
+import { csrfFetch } from '../store/csrf'
 
 const LOAD_SPOTS = 'spot/LOAD';
 const LOAD_SPOT_DETAILS = 'spot/LOAD_DETAILS ';
 const LOAD_SPOT_REVIEWS = 'spot/LOAD_SPOT_REVIEWS';
+const ADD_A_SPOT = 'spot/ADD_A_SPOT ';
+const ADD_A_SPOT_IMAGE = 'spot/ADD_A_SPOT_IMAGE';
+
 
 
 const loadSpots = spotList => ({
@@ -20,8 +23,29 @@ const loadSpotReviews = reviewList => ({
     reviewList
 });
 
+const addASpot = spot => ({
+    type: ADD_A_SPOT,
+    spot
+});
+
+const addASpotImage = spotImage => ({
+    type: ADD_A_SPOT_IMAGE,
+    spotImage
+});
+
 export const getSpot = () => async dispatch => {
     const response = await fetch(`/api/spots`);
+
+    if (response.ok) {
+        const spotList = await response.json();
+        //console.log("**********Spot List are:")
+        //console.log(spotList)
+        dispatch(loadSpots(spotList));
+    }
+};
+
+export const getUsersSpot = (userId) => async dispatch => {
+    const response = await fetch(`/api/spots/current`);
 
     if (response.ok) {
         const spotList = await response.json();
@@ -53,6 +77,38 @@ export const getSpotReviews = (spotId) => async dispatch => {
     }
 };
 
+export const createASpot = (spotObj) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(spotObj)
+    });
+
+    if (response.ok) {
+        const newSpot = await response.json();
+        // console.log("**********new Spot is:")
+        // console.log(newSpot)
+        dispatch(addASpot(newSpot));
+        return newSpot;
+    }
+};
+
+export const createASpotImage = ({ imageObj, spotId }) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(imageObj)
+    });
+
+    if (response.ok) {
+        const newSpotImage = await response.json();
+        console.log("**********new Spot image is:")
+        console.log(newSpotImage)
+        dispatch(addASpotImage(newSpotImage));
+        return newSpotImage;
+    }
+};
+
 const initialState = {};
 
 const sortList = (list) => {
@@ -63,9 +119,10 @@ const sortList = (list) => {
 
 
 export default function spotReducer(state = initialState, action) {
+    const allSpots = {};
     switch (action.type) {
         case LOAD_SPOTS:
-            const allSpots = {};
+
             action.spotList.Spots.forEach(spot => {
                 allSpots[spot.id] = spot;
             });
@@ -92,6 +149,10 @@ export default function spotReducer(state = initialState, action) {
                 ...state,
                 reviews
             }
+        case ADD_A_SPOT:
+            return state
+        case ADD_A_SPOT_IMAGE:
+            return state
         default:
             return state;
     }

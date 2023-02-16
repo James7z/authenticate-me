@@ -25,7 +25,7 @@ export default function AllSpots() {
             <nav className="spot-nav">
                 {spots.map((spot) => {
                     return (
-                        <div className="nav-spot-card" key={spot.name} >
+                        <div className="nav-spot-card" key={spot.id} >
                             <NavLink to={`/spots/${spot.id}`} >
 
                                 <div className="spot-image-container">
@@ -35,7 +35,8 @@ export default function AllSpots() {
                                 </div>
                                 <div className="spot-text-container">
                                     <div className="primary-text">
-                                        <span>{spot.city + ", " + spot.state}</span>
+                                        {/* <span>{spot.city + ", " + spot.state}</span> */}
+                                        <span>{spot.name}</span>
                                         <span>★ {typeof spot.avgStarRating === "number" ? Math.round(spot.avgStarRating * 10) / 10 : "New"}</span>
                                     </div>
                                     <div className="secondary-text">

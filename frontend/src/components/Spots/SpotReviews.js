@@ -6,8 +6,8 @@ export default function SpotReviews({ reviewList, reviewMsg }) {
 
     const options = { year: 'numeric', month: 'long' };
 
-    console.log("In review list :")
-    console.log(reviewList)
+    // console.log("In review list :")
+    // console.log(reviewList)
     return (<>
         {
             reviewList.map(review => (
