@@ -20,8 +20,8 @@ export default function SpotDetails() {
     reviewList = useSelector(state => {
         if (state.spots.reviews) return Object.values(state.spots.reviews).sort((a, b) => b.id - a.id)
     })
-    console.log("***reviewList is ")
-    console.log(reviewList)
+    // console.log("***reviewList is ")
+    // console.log(reviewList)
     const currUser = useSelector(state => state.session.user);
     //console.log(currUser)
 
@@ -114,7 +114,7 @@ export default function SpotDetails() {
                 </div>
 
                 <div>
-                    <SpotReviews reviewList={reviewList} reviewMsg={reviewMsg2}></SpotReviews>
+                    <SpotReviews reviewList={reviewList} reviewMsg={reviewMsg2} currUserId={currUser.id} ></SpotReviews>
                 </div>
 
             </div>

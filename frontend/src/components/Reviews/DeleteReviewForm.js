@@ -1,18 +1,18 @@
 import React from "react";
 
 import { useModal } from "../../context/Modal";
-import './SpotForm.css'
+import './ReviewForm.css'
 import { useDispatch } from "react-redux";
 import { deleteAReview, getSpotDetails } from "../../store/spot";
 
-export default function DeleteSpotForm({ spotId }) {
+export default function DeleteReviewForm({ reviewId, spotId }) {
     //if (!open) return null;
-    console.log(spotId)
+    // console.log("In form reviewId is ", reviewId)
     const { closeModal } = useModal();
     const dispatch = useDispatch();
     const handleDelete = () => {
         //console.log(spotId)
-        dispatch(deleteAReview(spotId)).then(closeModal);
+        dispatch(deleteAReview(reviewId)).then(closeModal);
 
     }
     const handleKeep = () => {
@@ -23,8 +23,8 @@ export default function DeleteSpotForm({ spotId }) {
 
     return (
         <>
-            <h1>Confirm Delete</h1>
-            <h2>Are you sure you want to delete this review? </h2>
+            <h2>Confirm Delete</h2>
+            <h3>Are you sure you want to delete this review? </h3>
             <div>
                 <button onClick={handleDelete} className="red-button">{"Yes (Delete Review)"}</button>
                 <button onClick={handleKeep} className="grey-button">{"No (Keep Review)"}</button>

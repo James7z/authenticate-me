@@ -7,6 +7,7 @@ const ADD_A_SPOT = 'spot/ADD_A_SPOT ';
 const ADD_A_SPOT_IMAGE = 'spot/ADD_A_SPOT_IMAGE';
 const REMOVE_A_SPOT = 'spot/DELET_A_SPOT';
 const ADD_A_SPOT_REVIEW = 'spot/LOAD_A_REVIEW';
+const REMOVE_SPOT_REVIEW = 'spot/REMOVE_REVIEW';
 
 
 const loadSpots = spotList => ({
@@ -43,6 +44,11 @@ const addASpotImage = spotImage => ({
 const removeSpot = spotId => ({
     type: REMOVE_A_SPOT,
     spotId
+})
+
+const removeSpotReview = reviewId => ({
+    type: REMOVE_SPOT_REVIEW,
+    reviewId
 })
 
 export const getSpot = () => async dispatch => {
@@ -161,15 +167,20 @@ export const createASpotReview = (reviewObj, spotId) => async dispatch => {
     });
 
     if (response.ok) {
-        const newSpotReview = await response.json();
-        console.log("**********new Spot Review is:")
-        console.log(newSpotReview)
-        dispatch(addASpotImage(newSpotReview));
-        return newSpotReview;
+        dispatch(getSpotReviews(spotId))
     }
 };
 
+export const deleteAReview = (reviewId) => async dispatch => {
+    // console.log("***spotId is ", spotId)
+    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: 'DELETE'
+    });
 
+    if (response.ok) {
+        dispatch(removeSpotReview(reviewId));
+    }
+};
 
 const initialState = {};
 
@@ -202,7 +213,6 @@ export default function spotReducer(state = initialState, action) {
                 singleSpot
             }
         case LOAD_SPOT_REVIEWS:
-            const reviews = {};
             action.reviewList.Reviews.forEach(review => reviews[review.id] = review);
             // console.log("********reviews is ");
             // console.log(reviews);
@@ -221,7 +231,12 @@ export default function spotReducer(state = initialState, action) {
             return state;
         case ADD_A_SPOT_REVIEW:
             reviews = { ...state.reviews, [action.review.id]: action.review }
+
             console.log(state.reviews)
+            return { ...state, reviews }
+        case REMOVE_SPOT_REVIEW:
+            reviews = { ...state.reviews }
+            delete reviews[action.reviewId]
             return { ...state, reviews }
         default:
             return state;
