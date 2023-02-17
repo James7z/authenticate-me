@@ -49,7 +49,7 @@ export default function SpotForm({ spot, formType }) {
         //if (formType === "Update you Spot") dispatch(getSpotDetails(spotId))
         if (spotId) dispatch(getSpotDetails(spotId))
         console.log("Use effect getSpotDetails ")
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         let errors = [];

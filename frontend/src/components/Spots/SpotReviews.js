@@ -4,11 +4,7 @@ import DeleteReviewForm from '../Reviews/DeleteReviewForm'
 export default function SpotReviews({ reviewList, reviewMsg, currUserId }) {
     if (!reviewList) return (null)
     if (reviewList.length === 0) return (<div> {reviewMsg}</div>)
-
     const options = { year: 'numeric', month: 'long' };
-
-    // console.log("In review list :")
-    // console.log(reviewList)
 
     return (<>
         {
@@ -20,7 +16,7 @@ export default function SpotReviews({ reviewList, reviewMsg, currUserId }) {
                     <div className={review.userId === currUserId ? "normal" : "hidden"}>
                         <OpenModalButton
                             buttonText="Delete"
-                            modalComponent={<DeleteReviewForm spotId={review.spotId} reviewId={review.id} />}
+                            modalComponent={<DeleteReviewForm spotId={review.spotId} reviewId={review.id} formType="Spot Review" />}
 
                         />
 

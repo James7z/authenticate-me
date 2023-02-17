@@ -25,16 +25,18 @@ const loadSpotReviews = reviewList => ({
     reviewList
 });
 
+const addASpot = spot => ({
+    type: ADD_A_SPOT,
+    spot
+});
+
 const addASpotReview = review => ({
     type: ADD_A_SPOT_REVIEW,
     review
 });
 
 
-const addASpot = spot => ({
-    type: ADD_A_SPOT,
-    spot
-});
+
 
 const addASpotImage = spotImage => ({
     type: ADD_A_SPOT_IMAGE,
@@ -106,7 +108,7 @@ export const createASpot = (spotObj) => async dispatch => {
         const newSpot = await response.json();
         // console.log("**********new Spot is:")
         // console.log(newSpot)
-        dispatch(addASpotReview(newSpot));
+        dispatch(addASpot(newSpot));
         return newSpot;
     }
 };
@@ -167,11 +169,13 @@ export const createASpotReview = (reviewObj, spotId) => async dispatch => {
     });
 
     if (response.ok) {
+        dispatch(getSpotDetails(spotId))
         dispatch(getSpotReviews(spotId))
+
     }
 };
 
-export const deleteAReview = (reviewId) => async dispatch => {
+export const deleteAReview = (reviewId, spotId) => async dispatch => {
     // console.log("***spotId is ", spotId)
     const response = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE'
@@ -179,6 +183,7 @@ export const deleteAReview = (reviewId) => async dispatch => {
 
     if (response.ok) {
         dispatch(removeSpotReview(reviewId));
+        dispatch(getSpotDetails(spotId))
     }
 };
 

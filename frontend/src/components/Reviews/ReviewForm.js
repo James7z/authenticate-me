@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { createASpotReview } from "../../store/spot";
+import { createASpotReview, updateASpot } from "../../store/spot";
+import { updateAReview } from "../../store/review";
 import { useModal } from "../../context/Modal";
 import './ReviewForm.css'
 
 
-export default function ReviewForm({ spotId }) {
-    console.log("Review form spotId is ", spotId)
+export default function ReviewForm({ spotId, reviewObj, formType }) {
+    //console.log("Review form spotId is ", spotId)
     const starsArr = [1, 2, 3, 4, 5];
-    const [stars, setStars] = useState(1);
-    const [review, setReview] = useState('');
+    const [stars, setStars] = useState(reviewObj.stars);
+    const [review, setReview] = useState(reviewObj.review);
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
     const dispatch = useDispatch();
@@ -28,7 +29,12 @@ export default function ReviewForm({ spotId }) {
         const payload = { review, stars }
         console.log('payload', payload)
         if (errors.length === 0) {
-            dispatch(createASpotReview(payload, spotId)).then(closeModal)
+            if (formType === "Create a Review") {
+                dispatch(createASpotReview(payload, spotId)).then(closeModal)
+            }
+            if (formType === "Update a Review") {
+                dispatch(updateAReview(payload, reviewObj.id)).then(closeModal)
+            }
         }
     }
 

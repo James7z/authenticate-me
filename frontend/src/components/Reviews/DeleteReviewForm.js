@@ -1,18 +1,23 @@
 import React from "react";
-
 import { useModal } from "../../context/Modal";
 import './ReviewForm.css'
 import { useDispatch } from "react-redux";
 import { deleteAReview, getSpotDetails } from "../../store/spot";
+import { deleteUserReview } from "../../store/review";
 
-export default function DeleteReviewForm({ reviewId, spotId }) {
+export default function DeleteReviewForm({ reviewId, spotId, formType }) {
     //if (!open) return null;
     // console.log("In form reviewId is ", reviewId)
     const { closeModal } = useModal();
     const dispatch = useDispatch();
     const handleDelete = () => {
         //console.log(spotId)
-        dispatch(deleteAReview(reviewId)).then(closeModal);
+        if (formType === "Spot Review") {
+            dispatch(deleteAReview(reviewId, spotId)).then(closeModal);
+        }
+        if (formType === "User Review") {
+            dispatch(deleteUserReview(reviewId)).then(closeModal);
+        }
 
     }
     const handleKeep = () => {
