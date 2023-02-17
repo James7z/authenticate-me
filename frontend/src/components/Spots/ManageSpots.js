@@ -12,13 +12,15 @@ export default function ManageSpots() {
     const spots = useSelector(state => {
         if (state.spots.allSpots) return Object.values(state.spots.allSpots)
     });
-    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
+
+    useEffect(() => {
+        dispatch(getUsersSpot())
+    }, [dispatch])
 
     if (!spots) {
         return null;
     }
-
 
 
     return (

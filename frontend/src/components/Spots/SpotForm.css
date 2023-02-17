@@ -1,3 +1,7 @@
+.hidden {
+    display: none;
+}
+
 .primary-text {
     display: flex;
     font-weight: bold;

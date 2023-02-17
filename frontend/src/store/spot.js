@@ -6,7 +6,7 @@ const LOAD_SPOT_REVIEWS = 'spot/LOAD_SPOT_REVIEWS';
 const ADD_A_SPOT = 'spot/ADD_A_SPOT ';
 const ADD_A_SPOT_IMAGE = 'spot/ADD_A_SPOT_IMAGE';
 const REMOVE_A_SPOT = 'spot/DELET_A_SPOT';
-
+const ADD_A_SPOT_REVIEW = 'spot/LOAD_A_REVIEW';
 
 
 const loadSpots = spotList => ({
@@ -23,6 +23,12 @@ const loadSpotReviews = reviewList => ({
     type: LOAD_SPOT_REVIEWS,
     reviewList
 });
+
+const addASpotReview = review => ({
+    type: ADD_A_SPOT_REVIEW,
+    review
+});
+
 
 const addASpot = spot => ({
     type: ADD_A_SPOT,
@@ -94,7 +100,7 @@ export const createASpot = (spotObj) => async dispatch => {
         const newSpot = await response.json();
         // console.log("**********new Spot is:")
         // console.log(newSpot)
-        dispatch(addASpot(newSpot));
+        dispatch(addASpotReview(newSpot));
         return newSpot;
     }
 };
@@ -108,8 +114,8 @@ export const createASpotImage = ({ imageObj, spotId }) => async dispatch => {
 
     if (response.ok) {
         const newSpotImage = await response.json();
-        console.log("**********new Spot image is:")
-        console.log(newSpotImage)
+        // console.log("**********new Spot image is:")
+        // console.log(newSpotImage)
         dispatch(addASpotImage(newSpotImage));
         return newSpotImage;
     }
@@ -144,6 +150,26 @@ export const deleteASpot = (spotId) => async dispatch => {
 };
 
 
+export const createASpotReview = (reviewObj, spotId) => async dispatch => {
+    console.log("thunk review Obj is")
+    console.log(reviewObj)
+    console.log(spotId)
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(reviewObj)
+    });
+
+    if (response.ok) {
+        const newSpotReview = await response.json();
+        console.log("**********new Spot Review is:")
+        console.log(newSpotReview)
+        dispatch(addASpotImage(newSpotReview));
+        return newSpotReview;
+    }
+};
+
+
 
 const initialState = {};
 
@@ -157,21 +183,19 @@ const sortList = (list) => {
 export default function spotReducer(state = initialState, action) {
     let allSpots = {};
     let newState = {};
+    let reviews = {};
     switch (action.type) {
         case LOAD_SPOTS:
 
             action.spotList.Spots.forEach(spot => {
                 allSpots[spot.id] = spot;
             });
-            //console.log("***allSpots are");
-            //console.log(allSpots);
             return {
                 ...state,
                 allSpots: { ...allSpots },
                 orderedSpotList: sortList(action.spotList.Spots)
             };
         case LOAD_SPOT_DETAILS:
-            // console.log(action.spotDetails)
             const singleSpot = { ...action.spotDetails };
             return {
                 ...state,
@@ -192,9 +216,13 @@ export default function spotReducer(state = initialState, action) {
             delete allSpots[action.spotId]
             return { ...state, allSpots }
         case ADD_A_SPOT:
-            return state
+            return state;
         case ADD_A_SPOT_IMAGE:
-            return state
+            return state;
+        case ADD_A_SPOT_REVIEW:
+            reviews = { ...state.reviews, [action.review.id]: action.review }
+            console.log(state.reviews)
+            return { ...state, reviews }
         default:
             return state;
     }

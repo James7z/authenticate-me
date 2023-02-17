@@ -1,0 +1,22 @@
+.reviewTextarea {
+    height: 5vw
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    background-color: white;
+
+}
+
+.red-button {
+    background-color: red;
+    color: white;
+}
+
+.grey-button {
+    background-color: red;
+    color: white;
+}
