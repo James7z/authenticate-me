@@ -55,10 +55,7 @@ export default function ManageSpots() {
                                     <span>       <OpenModalButton
                                         buttonText="Delete"
                                         modalComponent={<DeleteSpotForm spotId={spot.id} />}
-                                    // onButtonClick={() => console.log("Greeting initiated")}
-                                    // onModalClose={() => console.log("Greeting completed")}
                                     />
-
                                     </span>
 
 

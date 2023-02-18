@@ -108,7 +108,7 @@
 }
 
 .spot-price-stars {
-    border: 2px solid;
+
     margin: 15px 0 0 0;
     display: flex;
     justify-content: space-between;
@@ -117,13 +117,15 @@
 .spot-reserve-button-container {
     display: flex;
     justify-content: center;
-    background-color: red;
+
 }
 
 .spot-reserve-button-container button {
     background: red;
     color: white;
     border: none;
+    border-radius: 12px;
+    padding: 20px 40px;
 }
 
 .spot-details-info-description {
@@ -131,8 +133,14 @@
 }
 
 .spot-details-info-price-starts {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25%;
+    border: 2px black solid;
+    border-radius: 12px;
+    height: 60%;
 
-    width: 20%
 }
 
 .spot-details-review-card {
