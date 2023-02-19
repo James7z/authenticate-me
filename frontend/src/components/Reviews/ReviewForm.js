@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux";
-import { createASpotReview } from "../../store/spot";
+import { createASpotReview, updateASpotReview } from "../../store/spot";
 import { updateAReview } from "../../store/review";
 import { useModal } from "../../context/Modal";
 import './ReviewForm.css'
@@ -29,8 +29,11 @@ export default function ReviewForm({ spotId, reviewObj, formType }) {
             if (formType === "Create a Review") {
                 dispatch(createASpotReview(payload, spotId)).then(closeModal)
             }
-            if (formType === "Update a Review") {
+            if (formType === "Update a User Review") {
                 dispatch(updateAReview(payload, reviewObj.id)).then(closeModal)
+            }
+            if (formType === "Update a Spot Review") {
+                dispatch(updateASpotReview(payload, reviewObj.id, spotId)).then(closeModal)
             }
         }
     }

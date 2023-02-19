@@ -159,13 +159,28 @@ export const deleteASpot = (spotId) => async dispatch => {
 
 
 export const createASpotReview = (reviewObj, spotId) => async dispatch => {
-    console.log("thunk review Obj is")
-    console.log(reviewObj)
-    console.log(spotId)
+    //console.log("thunk review Obj is")
+    //console.log(reviewObj)
+    //console.log(spotId)
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(reviewObj)
+    });
+
+    if (response.ok) {
+        dispatch(getSpotDetails(spotId))
+        dispatch(getSpotReviews(spotId))
+
+    }
+};
+
+
+export const updateASpotReview = (payload, reviewId, spotId) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
     });
 
     if (response.ok) {

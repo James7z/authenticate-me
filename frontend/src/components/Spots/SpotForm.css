@@ -62,9 +62,9 @@
 
 /* spot details CSS */
 .spot-detail-container {
-    width: 90%;
-    margin: 0 4%;
+    width: 80%;
 
+    padding: 0 10%;
 }
 
 .spot-detail-images-container {
