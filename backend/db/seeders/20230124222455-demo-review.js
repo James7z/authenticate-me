@@ -30,7 +30,7 @@ module.exports = {
       },
       {
         spotId: 2,
-        userId: 1,
+        userId: 4,
         review: 'Lorem ipsum dolor sit amet, fabulas corpora ei qui, quo melius periculis gloriatur ei, vide audiam constituam vim te. Duo integre vocibus te. Dolor tamquam quo et, at eirmod erroribus eum. Ad minim iudico mei. Epicuri eleifend conceptam at per.',
         stars: 4
       },
