@@ -12,13 +12,15 @@ export default function ManageSpots() {
     const spots = useSelector(state => {
         if (state.spots.allSpots) return Object.values(state.spots.allSpots)
     });
-    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
+
+    useEffect(() => {
+        dispatch(getUsersSpot())
+    }, [dispatch])
 
     if (!spots) {
         return null;
     }
-
 
 
     return (
@@ -46,21 +48,15 @@ export default function ManageSpots() {
                                             {"$" + spot.price + " night"}
                                         </div>
                                     </div>
-
                                 </NavLink>
-                                <div>
+                                <span>
                                     <NavLink to={`/spots/${spot.id}/edit`} ><button>Update</button>  </NavLink>
                                     <span>       <OpenModalButton
                                         buttonText="Delete"
                                         modalComponent={<DeleteSpotForm spotId={spot.id} />}
-                                    // onButtonClick={() => console.log("Greeting initiated")}
-                                    // onModalClose={() => console.log("Greeting completed")}
                                     />
-
                                     </span>
-
-
-                                </div>
+                                </span>
                             </div>
 
                         );

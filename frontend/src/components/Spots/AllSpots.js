@@ -17,7 +17,11 @@ export default function AllSpots() {
     }, [dispatch])
 
     if (!spots) {
-        return null;
+        return (
+            <>
+                <h1>Unable to retrieve spots. Please try again shortly. </h1>
+            </>
+        )
     }
 
     return (

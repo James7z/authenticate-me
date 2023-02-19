@@ -2,27 +2,25 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotDetails, getSpotReviews } from "../../store/spot";
 import { useParams } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
 import './SpotForm.css'
 import SpotReviews from "./SpotReviews";
+import ReviewForm from "../Reviews/ReviewForm";
 
 export default function SpotDetails() {
     const dispatch = useDispatch();
     const { spotId } = useParams();
-
-
-    //console.log("spot id is " + spotId);
     const spot = useSelector(state => {
         if (state.spots.singleSpot) return state.spots.singleSpot
     })
-    //console.log(spot)
     let reviewList = [];
     reviewList = useSelector(state => {
         if (state.spots.reviews) return Object.values(state.spots.reviews).sort((a, b) => b.id - a.id)
+        else return []
     })
-    // console.log("***reviewList is ")
+    // console.log("***Spot Details reviewList is ")
     // console.log(reviewList)
     const currUser = useSelector(state => state.session.user);
-    //console.log(currUser)
 
     useEffect(() => {
         dispatch(getSpotDetails(spotId))
@@ -30,7 +28,11 @@ export default function SpotDetails() {
     }, [dispatch, spotId])
 
     if (!spot) {
-        return null;
+        return (
+            <>
+                <h1>Unable to retrieve spots. Please try again shortly. </h1>
+            </>
+        )
     }
 
     const isLoggedIn = currUser !== null
@@ -45,14 +47,16 @@ export default function SpotDetails() {
     //console.log(spotImages)
     const avgStars = typeof spot.avgStarRating === "number" ? Math.round(spot.avgStarRating * 10) / 10 : "New";
     let reviewMsg = '';
-    if (spot.numReviews === 1) reviewMsg = ` · 1 Review`;
-    if (spot.numReviews > 1) reviewMsg = ` · ${spot.numReviews} Reviews`;
+    let reviewCnt = spot.numReviews;
+    if (reviewCnt === 1) reviewMsg = ` · 1 Review`;
+    if (reviewCnt > 1) reviewMsg = ` · ${reviewCnt} Reviews`;
     let reviewMsg2 = '';
-    if (isLoggedIn && notOwner && spot.numReviews === 0) reviewMsg2 = "Be the first to post a review!";
+    if (isLoggedIn && notOwner && reviewCnt === 0) reviewMsg2 = "Be the first to post a review!";
     // let spotNumReviews = 0;
-    // spotNumReviews = spot.numReviews;
-    // console.log(spotNumReviews);
 
+    // console.log(spotNumReviews);
+    let showPostReview = false;
+    if (isLoggedIn && notOwner && reviewList && !reviewList.find(review => review.userId === currUser.id)) showPostReview = true;
     return (
         <div className="spot-detail-container">
 
@@ -89,14 +93,25 @@ export default function SpotDetails() {
                         </span>
                     </div>
                     <div className="spot-reserve-button-container">
-                        <button onClick={e => window.alert("Feature Comming Soon")}>Reserve</button>
+                        <button onClick={e => window.alert("Feature Comming Soon")}>Register</button>
                     </div>
                 </div>
             </div>
             <div className="spot-details-reviews-container">
-                <h2>Reviews</h2>
+                <h2>★ {avgStars + reviewMsg}</h2>
+                <div className={showPostReview ? "normal" : "hidden"}>
+                    <span>       <OpenModalButton
+                        buttonText="Post your review"
+                        modalComponent={<ReviewForm spotId={spot.id} reviewObj={{ review: '', stars: 1 }} formType="Create a Review" />}
+                    // onButtonClick={() => console.log("Greeting initiated")}
+                    // onModalClose={() => console.log("Greeting completed")}
+                    />
+
+                    </span>
+                </div>
+
                 <div>
-                    <SpotReviews reviewList={reviewList} reviewMsg={reviewMsg2}></SpotReviews>
+                    <SpotReviews reviewList={reviewList} reviewMsg={reviewMsg2} currUserId={currUser ? currUser.id : undefined} ></SpotReviews>
                 </div>
 
             </div>

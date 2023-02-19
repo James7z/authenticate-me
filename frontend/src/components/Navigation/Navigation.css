@@ -45,3 +45,8 @@
 .profile-dropdown {
     position: absolute;
 }
+
+.profile-dropdown button {
+    background-color: darkgray;
+    color: white
+}
