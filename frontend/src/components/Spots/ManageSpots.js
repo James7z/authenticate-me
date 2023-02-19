@@ -48,18 +48,15 @@ export default function ManageSpots() {
                                             {"$" + spot.price + " night"}
                                         </div>
                                     </div>
-
                                 </NavLink>
-                                <div>
+                                <span>
                                     <NavLink to={`/spots/${spot.id}/edit`} ><button>Update</button>  </NavLink>
                                     <span>       <OpenModalButton
                                         buttonText="Delete"
                                         modalComponent={<DeleteSpotForm spotId={spot.id} />}
                                     />
                                     </span>
-
-
-                                </div>
+                                </span>
                             </div>
 
                         );

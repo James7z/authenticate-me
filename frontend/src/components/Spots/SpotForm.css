@@ -43,10 +43,7 @@
     padding: 4px 8px;
     position: relative;
     color: black;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display: block
 }
 
 .spot-nav .spot-image {

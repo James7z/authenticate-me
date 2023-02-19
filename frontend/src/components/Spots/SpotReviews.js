@@ -1,5 +1,6 @@
 import OpenModalButton from "../OpenModalButton";
 import DeleteReviewForm from '../Reviews/DeleteReviewForm'
+import ReviewForm from "../Reviews/ReviewForm";
 
 export default function SpotReviews({ reviewList, reviewMsg, currUserId }) {
     if (!reviewList) return (null)
@@ -13,13 +14,21 @@ export default function SpotReviews({ reviewList, reviewMsg, currUserId }) {
                     <div>{review.User.firstName}</div>
                     <div>{(new Date(review.createdAt)).toLocaleDateString(undefined, options)}</div>
                     <div>{review.review}</div>
-                    <div className={review.userId === currUserId ? "normal" : "hidden"}>
-                        <OpenModalButton
-                            buttonText="Delete"
-                            modalComponent={<DeleteReviewForm spotId={review.spotId} reviewId={review.id} formType="Spot Review" />}
 
+                    <div className={review.userId === currUserId ? "normal" : "hidden"}>
+                        <span>       <OpenModalButton
+                            buttonText="Update"
+                            modalComponent={<ReviewForm spotId={review.spotId} reviewObj={review} formType="Update a Review" />}
                         />
 
+                        </span>
+                        <span>
+                            <OpenModalButton
+                                buttonText="Delete"
+                                modalComponent={<DeleteReviewForm spotId={review.spotId} reviewId={review.id} formType="Spot Review" />}
+
+                            />
+                        </span>
                     </div>
                 </div>
             ))

@@ -60,6 +60,11 @@ export default function SpotForm({ spot, formType }) {
         if (name.length === 0) errors.push("Spot title field is required");
         if (price < 0 || isNaN(price)) errors.push("Please provide a valid price")
         if (!spotImage1) errors.push("Please provide at least one photo to publish your spot.")
+        if (spotImage1 && !spotImage1.includes("jpg")) errors.push("Please provide a valid type (jpg) for 1st photo.")
+        if (spotImage2 && !spotImage2.includes("jpg")) errors.push("Please provide a valid type (jpg) for 2nd photo.")
+        if (spotImage3 && !spotImage3.includes("jpg")) errors.push("Please provide a valid type (jpg) for 3rd photo.")
+        if (spotImage4 && !spotImage4.includes("jpg")) errors.push("Please provide a valid type (jpg) for 4th photo.")
+        if (spotImage5 && !spotImage5.includes("jpg")) errors.push("Please provide a valid type (jpg) for 5th photo.")
         // console.log("Use effect check errors ")
 
         setErrors(errors)
