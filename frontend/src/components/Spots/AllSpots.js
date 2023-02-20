@@ -10,8 +10,6 @@ export default function AllSpots() {
         if (state.spots.allSpots) return Object.values(state.spots.allSpots)
     })
 
-    //     console.log(spots)
-
     useEffect(() => {
         dispatch(getSpot())
     }, [dispatch])

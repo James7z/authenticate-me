@@ -6,8 +6,6 @@ import { deleteAReview, getSpotDetails } from "../../store/spot";
 import { deleteUserReview } from "../../store/review";
 
 export default function DeleteReviewForm({ reviewId, spotId, formType }) {
-    //if (!open) return null;
-    // console.log("In form reviewId is ", reviewId)
     const { closeModal } = useModal();
     const dispatch = useDispatch();
     const handleDelete = () => {

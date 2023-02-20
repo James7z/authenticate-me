@@ -6,17 +6,13 @@ import { useDispatch } from "react-redux";
 import { deleteASpot, getSpotDetails } from "../../store/spot";
 
 export default function DeleteSpotForm({ spotId }) {
-    //if (!open) return null;
-    console.log(spotId)
     const { closeModal } = useModal();
     const dispatch = useDispatch();
     const handleDelete = () => {
-        //console.log(spotId)
         dispatch(deleteASpot(spotId)).then(closeModal);
 
     }
     const handleKeep = () => {
-        //console.log(spotId)
         dispatch(getSpotDetails(spotId)).then(closeModal);
 
     }

@@ -192,3 +192,13 @@ textarea {
 .grey-button {
     background-color: darkgray;
 }
+
+.spot-submit-button-container {
+    align-self: center;
+
+}
+
+.spot-submit-button-container button {
+    padding: 5% 10%;
+    width: 10vw;
+}

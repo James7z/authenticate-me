@@ -39,15 +39,9 @@ export const updateAReview = (payload, reviewId) => async dispatch => {
     });
     if (response.ok) {
         const review = await response.json();
-        console.log("*******Get User Review List are:")
-        console.log(review)
         dispatch(loadUserReview(review));
     }
 };
-
-
-
-
 
 export const deleteUserReview = (reviewId) => async dispatch => {
     const response = await csrfFetch(`/api/reviews/${reviewId}`, {
@@ -58,9 +52,7 @@ export const deleteUserReview = (reviewId) => async dispatch => {
     }
 };
 
-
 const initialState = {};
-
 
 export default function reviewReducer(state = initialState, action) {
     let curr_user_reviews = {};
@@ -72,9 +64,6 @@ export default function reviewReducer(state = initialState, action) {
                 ...curr_user_reviews
             }
         case LOAD_USER_REVIEW:
-            // console.log("********reviews is ");
-            // console.log(reviews);
-            //const updatedReview = {...state[action.review.id]
             return {
                 ...state, [action.review.id]: { ...state[action.review.id], ...action.review }
             }

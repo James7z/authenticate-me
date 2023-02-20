@@ -79,3 +79,17 @@ form {
     top: 0px;
     left: 0px;
 }
+
+.manage-review-container {
+    width: 80%;
+    padding: 0 10%;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 96%;
+    align-items: center;
+    margin: 1% 2%;
+}

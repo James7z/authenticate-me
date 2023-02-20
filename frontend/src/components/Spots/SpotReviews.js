@@ -20,7 +20,6 @@ export default function SpotReviews({ reviewList, reviewMsg, currUserId }) {
                             buttonText="Update"
                             modalComponent={<ReviewForm spotId={review.spotId} reviewObj={review} formType="Update a Spot Review" />}
                         />
-
                         </span>
                         <span>
                             <OpenModalButton

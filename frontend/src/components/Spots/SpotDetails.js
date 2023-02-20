@@ -36,7 +36,6 @@ export default function SpotDetails() {
     }
 
     const isLoggedIn = currUser !== null
-    //console.log("user logged in " + isLoggedIn)
     let notOwner;
     if (spot && currUser) {
         notOwner = currUser.id !== spot.ownerId;
@@ -44,7 +43,7 @@ export default function SpotDetails() {
     const previewImage = spot.SpotImages.find(image => image.preview === true);
     const previewImageUrl = previewImage ? previewImage.url : '';
     const spotImages = spot.SpotImages.filter(image => image.preview === false).slice(0, 4)
-    //console.log(spotImages)
+
     const avgStars = typeof spot.avgStarRating === "number" ? Math.round(spot.avgStarRating * 10) / 10 : "New";
     let reviewMsg = '';
     let reviewCnt = spot.numReviews;
@@ -52,9 +51,6 @@ export default function SpotDetails() {
     if (reviewCnt > 1) reviewMsg = ` · ${reviewCnt} Reviews`;
     let reviewMsg2 = '';
     if (isLoggedIn && notOwner && reviewCnt === 0) reviewMsg2 = "Be the first to post a review!";
-    // let spotNumReviews = 0;
-
-    // console.log(spotNumReviews);
     let showPostReview = false;
     if (isLoggedIn && notOwner && reviewList && !reviewList.find(review => review.userId === currUser.id)) showPostReview = true;
     return (
@@ -103,8 +99,6 @@ export default function SpotDetails() {
                     <span>       <OpenModalButton
                         buttonText="Post your review"
                         modalComponent={<ReviewForm spotId={spot.id} reviewObj={{ review: '', stars: 1 }} formType="Create a Review" />}
-                    // onButtonClick={() => console.log("Greeting initiated")}
-                    // onModalClose={() => console.log("Greeting completed")}
                     />
 
                     </span>

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { createASpotReview, updateASpotReview } from "../../store/spot";
 import { updateAReview } from "../../store/review";
 import { useModal } from "../../context/Modal";
-import './ReviewForm.css'
+import './ReviewForm.css';
 
 
 export default function ReviewForm({ spotId, reviewObj, formType }) {
@@ -24,7 +24,7 @@ export default function ReviewForm({ spotId, reviewObj, formType }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const payload = { review, stars }
-        console.log('payload', payload)
+        //console.log('payload', payload)
         if (errors.length === 0) {
             if (formType === "Create a Review") {
                 dispatch(createASpotReview(payload, spotId)).then(closeModal)
@@ -41,7 +41,7 @@ export default function ReviewForm({ spotId, reviewObj, formType }) {
     return (
         <>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="review-form">
                 <h1>How was your stay?</h1>
                 <ul className="errors">
                     {errors.length > 0 && errors.map(error => (
@@ -56,26 +56,18 @@ export default function ReviewForm({ spotId, reviewObj, formType }) {
                     >
                     </textarea></div>
                 <div><lable>Stars
-                    {/* <select value={stars} onChange={e => setStars(e.target.value)}>
-                        {starsArr.map(star => (
-                            <option key={star} value={star}>
-                                {star} ★
-                            </option>
-                        ))}
-                    </select> */}
-
-                    <ul class="rate-area">
+                    <ul className="rate-area">
                         <input type="radio" id="5-star" value="5" onClick={e => setStars(e.target.value)} />
-                        <label for="5-star" title="Amazing">5 stars</label>
+                        <label htmlFor="5-star" title="Amazing">5 stars</label>
                         <input type="radio" id="4-star" value="4" onClick={e => setStars(e.target.value)} />
-                        <label for="4-star" title="Good">4 stars</label>
+                        <label htmlFor="4-star" title="Good">4 stars</label>
                         <input type="radio" id="3-star" value="3" onClick={e => setStars(e.target.value)} />
-                        <label for="3-star" title="Average">3 stars</label>
+                        <label htmlFor="3-star" title="Average">3 stars</label>
                         <input type="radio" id="2-star" value="2" onClick={e => setStars(e.target.value)} />
-                        <label for="2-star" title="Not Good">2 stars</label>
+                        <label htmlFor="2-star" title="Not Good">2 stars</label>
                         <input type="radio" id="1-star" required=""
                             value="1" onClick={e => setStars(e.target.value)} />
-                        <label for="1-star" title="Bad">1 star</label>
+                        <label htmlFor="1-star" title="Bad">1 star</label>
                     </ul>
 
                 </lable></div>
