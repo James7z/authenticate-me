@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { createASpot, createASpotImage, getSpotDetails, updateASpot } from "../../store/spot";
+import { createASpot, createASpotImage, updateASpot } from "../../store/spot";
 import './SpotForm.css'
 
 export default function SpotForm({ spot, formType }) {
-    // console.log('spotDetails is ')
-    // console.log(spot)
     const dispatch = useDispatch();
     const [country, setCountry] = useState(spot.country);
     const [address, setAddress] = useState(spot.address);
@@ -27,14 +25,6 @@ export default function SpotForm({ spot, formType }) {
     //const [spotImages, setSpotImages] = useState({});
     const [errors, setErrors] = useState([]);
     const history = useHistory();
-    let ownerId;
-    let isOwner = true;
-    const currUser = useSelector(state => state.session.user);
-    if (currUser) ownerId = currUser.id;
-    // const spotDetails = useSelector(state => {
-    //     if (state.spots.singleSpot) return { ...state.spots.singleSpot }
-    // })
-
     const { spotId } = useParams();
 
     let buttonStr = '';
@@ -43,13 +33,6 @@ export default function SpotForm({ spot, formType }) {
         buttonStr = "Update Spot";
 
     }
-
-
-    useEffect(() => {
-        //if (formType === "Update you Spot") dispatch(getSpotDetails(spotId))
-        if (spotId) dispatch(getSpotDetails(spotId))
-        console.log("Use effect getSpotDetails ")
-    }, [dispatch])
 
     useEffect(() => {
         let errors = [];
@@ -95,16 +78,9 @@ export default function SpotForm({ spot, formType }) {
         }
 
         if (formType === "Update you Spot") {
-            console.log("payload is ")
-            console.log(payload)
             const data = await dispatch(updateASpot({ payload, spotId }))
-
             history.push(`/spots/${data.id}`)
         }
-
-
-
-
     };
 
     return (
@@ -309,7 +285,7 @@ export default function SpotForm({ spot, formType }) {
                                 onChange={e => setSpotImage5(e.target.value)}
                             />
                         </div>
-                        <div>
+                        <div className="spot-submit-button-container">
                             <button
                                 type="submit"
                                 disabled={errors.length > 0}

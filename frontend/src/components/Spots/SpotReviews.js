@@ -18,9 +18,8 @@ export default function SpotReviews({ reviewList, reviewMsg, currUserId }) {
                     <div className={review.userId === currUserId ? "normal" : "hidden"}>
                         <span>       <OpenModalButton
                             buttonText="Update"
-                            modalComponent={<ReviewForm spotId={review.spotId} reviewObj={review} formType="Update a Review" />}
+                            modalComponent={<ReviewForm spotId={review.spotId} reviewObj={review} formType="Update a Spot Review" />}
                         />
-
                         </span>
                         <span>
                             <OpenModalButton

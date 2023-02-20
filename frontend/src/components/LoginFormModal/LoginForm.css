@@ -23,3 +23,8 @@ h1 {
     display: flex;
     justify-content: center;
 }
+
+.log-in-form button {
+    width: 50%;
+    margin: 0 25%;
+}
