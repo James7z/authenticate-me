@@ -44,3 +44,9 @@ i {
     height: 16px;
     width: 24px;
 }
+
+.delete-form-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

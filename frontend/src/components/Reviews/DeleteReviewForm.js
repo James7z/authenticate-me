@@ -26,9 +26,9 @@ export default function DeleteReviewForm({ reviewId, spotId, formType }) {
 
     return (
         <>
-            <h2>Confirm Delete</h2>
-            <h3>Are you sure you want to delete this review? </h3>
-            <div>
+            <h1>Confirm Delete</h1>
+            <h4>Are you sure you want to delete this review? </h4>
+            <div className="delete-form-buttons-container">
                 <button onClick={handleDelete} className="red-button">{"Yes (Delete Review)"}</button>
                 <button onClick={handleKeep} className="grey-button">{"No (Keep Review)"}</button>
             </div>

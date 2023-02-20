@@ -20,8 +20,8 @@ export default function DeleteSpotForm({ spotId }) {
     return (
         <>
             <h1>Confirm Delete</h1>
-            <h2>Are you sure you want to remove this spot? </h2>
-            <div>
+            <h4>Are you sure you want to remove this spot? </h4>
+            <div className="delete-form-buttons-container">
                 <button onClick={handleDelete} className="red-button">{"Yes (Delete Spot)"}</button>
                 <button onClick={handleKeep} className="grey-button">{"No (Keep Spot)"}</button>
             </div>
