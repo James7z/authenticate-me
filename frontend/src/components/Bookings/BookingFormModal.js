@@ -6,7 +6,7 @@ import { csrfFetch } from '../../store/csrf';
 import Calendar from 'react-calendar';
 import { differenceInCalendarDays } from 'date-fns';
 import { getSpotBookings, createBooking } from '../../store/spot'
-import './Bookings.css';
+import './BookingForm.css';
 
 const BookingsModal = ({ spot }) => {
     const dispatch = useDispatch();

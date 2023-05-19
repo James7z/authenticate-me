@@ -39,7 +39,7 @@
     box-sizing: border-box;
     flex-wrap: wrap;
     max-height: 400px;
-    margin: 0 10px 10px;
+    margin: 10px 10px 10px;
     min-width: 20%;
     padding: 4px 8px;
     position: relative;

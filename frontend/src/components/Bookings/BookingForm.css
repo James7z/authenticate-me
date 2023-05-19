@@ -184,3 +184,46 @@
 .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: #e6e6e6;
 }
+
+/* delete booking form */
+
+.reviewTextarea {
+    height: 5vw
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+
+}
+
+.red-button {
+    background-color: red;
+    color: white;
+}
+
+.grey-button {
+    background-color: darkgray;
+    color: white;
+}
+
+
+.checked {
+    color: orange;
+}
+
+
+
+.manage-booking-container {
+    margin: 10px 15%;
+    padding: 10px 5%;
+}
+
+.user-booking-card {
+    margin: 2%;
+}
+
+.spot-nav div.nav-spot-card {
+    margin: ;
+}
