@@ -381,6 +381,8 @@ router.post('/:spotId/bookings', requireAuth, spotIdCheck, async (req, res, next
     }
 
     const { startDate, endDate } = req.body;
+    // startDate = new Date(startDate);
+    // endDate = new Date(endDate);
     // let startDateD = new Date(startDate);
     // console.log(startDateD);
     const startDateVal = (new Date(startDate)).getTime();
@@ -411,6 +413,10 @@ router.post('/:spotId/bookings', requireAuth, spotIdCheck, async (req, res, next
         }
 
     }
+    console.log("*****************************************")
+    console.log("startDate is ", startDate);
+    console.log("endDate is ", endDate);
+    console.log("*****************************************")
     let newBooking = await Booking.create({ spotId, userId, startDate, endDate });
     res.json(newBooking)
 })

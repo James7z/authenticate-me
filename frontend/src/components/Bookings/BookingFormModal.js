@@ -26,13 +26,13 @@ const BookingsModal = ({ spot }) => {
         if (isCount && startDate === 0) return [];
 
         start = new Date(start);
-        start = new Date(start.setDate(start.getDate() - 1));
+        start = new Date(start.setDate(start.getDate()));
         end = new Date(end);
 
         if (isSameDay(start, end)) return [start];
 
         let currDate = start;
-        while (currDate.getDate() < end.getDate()) {
+        while (currDate.getDate() <= end.getDate()) {
             array.push(currDate);
             const nextDate = currDate.setDate(currDate.getDate() + 1);
             currDate = new Date(nextDate);
