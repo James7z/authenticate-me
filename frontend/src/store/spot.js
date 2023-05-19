@@ -8,6 +8,7 @@ const ADD_A_SPOT_IMAGE = 'spot/ADD_A_SPOT_IMAGE';
 const REMOVE_A_SPOT = 'spot/DELET_A_SPOT';
 const ADD_A_SPOT_REVIEW = 'spot/LOAD_A_REVIEW';
 const REMOVE_SPOT_REVIEW = 'spot/REMOVE_REVIEW';
+const SET_SPOT_BOOKINGS = 'spot/SET_SPOT_BOOKINGS';
 
 
 const loadSpots = spotList => ({
@@ -35,6 +36,10 @@ const addASpot = spot => ({
 //     review
 // });
 
+const setSpotBookings = (bookings) => ({
+    type: SET_SPOT_BOOKINGS,
+    bookings
+});
 
 
 
@@ -183,6 +188,31 @@ export const deleteAReview = (reviewId, spotId) => async dispatch => {
     }
 };
 
+
+export const getSpotBookings = (spotId) => async dispatch => {
+    const res = await csrfFetch(`/api/spots/${spotId}/bookings`);
+
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(setSpotBookings(data.Bookings));
+    }
+    return res;
+}
+
+export const createBooking = (spotId, data) => async dispatch => {
+    const res = await csrfFetch(`/api/spots/${spotId}/bookings`, {
+        method: 'POST',
+        body: JSON.stringify(data)
+    });
+
+    if (res.ok) {
+        dispatch(getSpot(spotId));
+        return true;
+    }
+
+    return false;
+};
+
 const initialState = {};
 
 const sortList = (list) => {
@@ -193,7 +223,7 @@ const sortList = (list) => {
 
 export default function spotReducer(state = initialState, action) {
     let allSpots = {};
-    //let newState = {};
+    let newState = { ...state };
     let reviews = {};
     switch (action.type) {
         case LOAD_SPOTS:
@@ -233,6 +263,9 @@ export default function spotReducer(state = initialState, action) {
             reviews = { ...state.reviews }
             delete reviews[action.reviewId]
             return { ...state, reviews }
+        case SET_SPOT_BOOKINGS:
+            newState.bookings = [...action.bookings]
+            return newState;
         default:
             return state;
     }
