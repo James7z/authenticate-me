@@ -23,6 +23,7 @@ export default function SpotForm({ spot, formType }) {
     const [spotImage4, setSpotImage4] = useState('');
     const [spotImage5, setSpotImage5] = useState('');
     //const [spotImages, setSpotImages] = useState({});
+
     const [errors, setErrors] = useState([]);
     const history = useHistory();
     const { spotId } = useParams();
@@ -66,6 +67,8 @@ export default function SpotForm({ spot, formType }) {
         if (spotImage3) spotImages.push(spotImage3);
         if (spotImage4) spotImages.push(spotImage4);
         if (spotImage5) spotImages.push(spotImage5);
+
+        if (spotImages.length === 0) spotImages.push(spotImage5);
         if (formType === "Create a New Spot") {
             const data = await dispatch(createASpot(payload))
             if (spotImages.length > 0) {

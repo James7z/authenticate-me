@@ -5,7 +5,7 @@
 .navigation {
     display: flex;
     justify-content: space-between;
-    margin: 20px;
+    margin: 20px 10%;
     padding: 10px;
     list-style-type: none;
 
@@ -45,7 +45,10 @@
 .profile-dropdown {
     position: absolute;
     z-index: 1;
-    right: 1%;
+    right: 5%;
+    margin: 10px;
+    border: 2px solid black;
+    padding: 10px 20px 10px 30px;
 }
 
 .profile-dropdown button {

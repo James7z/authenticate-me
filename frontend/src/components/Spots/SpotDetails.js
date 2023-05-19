@@ -6,6 +6,7 @@ import OpenModalButton from "../OpenModalButton";
 import './SpotForm.css'
 import SpotReviews from "./SpotReviews";
 import ReviewForm from "../Reviews/ReviewForm";
+import BookingsModal from "../Bookings/BookingFormModal";
 
 export default function SpotDetails() {
     const dispatch = useDispatch();
@@ -21,7 +22,7 @@ export default function SpotDetails() {
     // console.log("***Spot Details reviewList is ")
     // console.log(reviewList)
     const currUser = useSelector(state => state.session.user);
-
+    const emptyImage = "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg"
     useEffect(() => {
         dispatch(getSpotDetails(spotId))
         dispatch(getSpotReviews(spotId))
@@ -44,6 +45,7 @@ export default function SpotDetails() {
     const previewImageUrl = previewImage ? previewImage.url : '';
     const spotImages = spot.SpotImages.filter(image => image.preview === false).slice(0, 4)
 
+    //console.log(spotImages)
     const avgStars = typeof spot.avgStarRating === "number" ? Math.round(spot.avgStarRating * 10) / 10 : "New";
     let reviewMsg = '';
     let reviewCnt = spot.numReviews;
@@ -67,7 +69,7 @@ export default function SpotDetails() {
                 <div className="spot-detail-image-container-2" >
                     {spotImages.map((image, i) => (
                         // <div >
-                        <img className="spot-detail-image" src={image.url} alt={"Image of " + spot.name + " " + i + 1} key={i} />
+                        <img className="spot-detail-image" src={image.url ? image.url : emptyImage} alt={"Image of " + spot.name + " " + i + 1} key={i} />
                         //</div>
                     ))}
                 </div>
@@ -80,19 +82,28 @@ export default function SpotDetails() {
                         {spot.description}
                     </div>
                 </div>
-                <div className="spot-details-info-price-starts">
-                    <div className="spot-price-stars">
-                        <span >
-                            {"$" + spot.price + " night"}
-                        </span>
-                        <span>★ {avgStars + reviewMsg}
-                        </span>
+                {spot?.ownerId !== currUser?.id &&
+                    <div className="spot-details-info-price-starts">
+                        <div className="spot-price-stars">
+                            <span >
+                                {"$" + spot.price + " night"}
+                            </span>
+                            <span>★ {avgStars + reviewMsg}
+                            </span>
+                        </div>
+                        <div className="spot-reserve-button-container">
+                            {/* <button onClick={e => window.alert("Feature Comming Soon")}>Register</button> */}
+                            <OpenModalButton
+                                className="spot-reserve-button main-button-style"
+                                buttonText='Reserve'
+                                modalComponent={<BookingsModal spot={spot} />}
+
+                            />
+                        </div>
                     </div>
-                    <div className="spot-reserve-button-container">
-                        <button onClick={e => window.alert("Feature Comming Soon")}>Register</button>
-                    </div>
-                </div>
+                }
             </div>
+
             <div className="spot-details-reviews-container">
                 <h2>★ {avgStars + reviewMsg}</h2>
                 <div className={showPostReview ? "normal" : "hidden"}>

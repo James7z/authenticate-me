@@ -1,5 +1,6 @@
 'use strict';
 const bcrypt = require("bcryptjs");
+const { seedUsers } = require('../../utils/seed')
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -9,7 +10,8 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     options.tableName = 'Users';
-    return queryInterface.bulkInsert(options, [
+    const users = seedUsers(96);
+    const demoUsers = [
       {
         email: 'demo@user.io',
         username: 'Demo-lition',
@@ -38,14 +40,18 @@ module.exports = {
         lastName: 'Demo4',
         hashedPassword: bcrypt.hashSync('password3')
       }
-    ], {});
+    ]
+
+    demoUsers.forEach(user => users.push(user))
+
+    return queryInterface.bulkInsert(options, users);
   },
 
   down: async (queryInterface, Sequelize) => {
     options.tableName = 'Users';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
+      id: { [Op.gte]: 0 }
     }, {});
   }
 };

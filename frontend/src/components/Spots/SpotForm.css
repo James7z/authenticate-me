@@ -21,12 +21,13 @@
 .spot-nav-container {
     display: flex;
     justify-content: center;
+    margin: 10px 10%;
 }
 
 .spot-nav {
     display: flex;
     flex-wrap: wrap;
-    width: 90%;
+    width: 100%;
     align-items: center;
     /* justify-content: space-around; */
 
@@ -49,6 +50,7 @@
 .spot-nav .spot-image {
     height: 300px;
     width: 320px;
+    border-radius: 12px;
 }
 
 .spot-image-container {
@@ -62,9 +64,10 @@
 
 /* spot details CSS */
 .spot-detail-container {
-    width: 80%;
+
 
     padding: 0 10%;
+    margin: 10px 10%;
 }
 
 .spot-detail-images-container {
@@ -72,6 +75,7 @@
     flex-direction: row;
     margin: 10px 10px;
     width: 100%;
+    border-radius: 12px;
 }
 
 .spot-detail-image-container-2 {
@@ -79,6 +83,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 50%;
+    border-radius: 12px;
 }
 
 .spot-detail-preview-image-container {
@@ -89,6 +94,7 @@
 .spot-detail-preview-image {
     width: 100%;
     height: 416px;
+    border-radius: 12px;
 
 }
 
@@ -96,6 +102,7 @@
     width: 48%;
     height: 205px;
     margin: 0px 2px;
+    border-radius: 12px;
 }
 
 .spot-details-info-container {
@@ -106,9 +113,14 @@
 
 .spot-price-stars {
 
-    margin: 15px 0 0 0;
+    margin: 15px;
     display: flex;
     justify-content: space-between;
+}
+
+.spot-price-stars span {
+    text-align: center;
+
 }
 
 .spot-reserve-button-container {
@@ -137,6 +149,7 @@
     border: 2px black solid;
     border-radius: 12px;
     height: 60%;
+    margin: 10px;
 
 }
 
