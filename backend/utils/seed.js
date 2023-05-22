@@ -77,7 +77,20 @@ const homeImages = [
     'https://a0.muscache.com/im/pictures/9b6965c0-0e9f-4bf4-b3da-e88b8881d74f.jpg?im_w=720',
     'https://a0.muscache.com/im/pictures/20e865d0-6ce5-4bd5-805f-7d0b79f2a1e2.jpg?im_w=720',
     'https://a0.muscache.com/im/pictures/fbd239dc-c513-4e40-ac98-6e58ecc67060.jpg?im_w=720',
-    'https://a0.muscache.com/im/pictures/fda6ed6a-f82e-4fec-8944-b476c50cb411.jpg?im_w=720'
+    'https://a0.muscache.com/im/pictures/fda6ed6a-f82e-4fec-8944-b476c50cb411.jpg?im_w=720',
+    'https://a0.muscache.com/im/pictures/da2eff5d-90b5-442b-9ca0-70dd6c4928cf.jpg?im_w=1200',
+    'https://a0.muscache.com/im/pictures/c8c0c60c-3a2e-43ef-9453-b9e173e63179.jpg?im_w=1200',
+    'https://a0.muscache.com/im/pictures/76e304b1-4f30-4e17-8b2b-6eeac05cb7f8.jpg?im_w=720',
+    'https://a0.muscache.com/im/pictures/43e258b9-83a5-47e9-8d5b-46d78060c665.jpg?im_w=720',
+    'https://a0.muscache.com/im/pictures/miso/Hosting-31407170/original/02d286bf-c705-4482-b96d-6110ef1b9464.jpeg?im_w=1200',
+    'https://a0.muscache.com/im/pictures/miso/Hosting-31407170/original/6e68d745-fa84-4045-b884-8de90e1a3f9d.png?im_w=720',
+    'https://a0.muscache.com/im/pictures/miso/Hosting-850581824614655524/original/ffd75c42-855c-48b5-8b45-5a33d52ae5b1.jpeg?im_w=1200',
+    'https://a0.muscache.com/im/pictures/miso/Hosting-850581824614655524/original/64778410-0ecd-4dc5-bd4b-3ac0470420e7.jpeg?im_w=720',
+    'https://a0.muscache.com/im/pictures/miso/Hosting-850581824614655524/original/39c823de-4339-4c44-9d2c-0911359449ad.jpeg?im_w=720',
+    'https://a0.muscache.com/im/pictures/prohost-api/Hosting-610233436358954768/original/b6ad155b-6228-4de1-91ba-e1032fd54237.jpeg?im_w=1200',
+    'https://a0.muscache.com/im/pictures/prohost-api/Hosting-610233436358954768/original/d54de3a6-d220-46c4-9ebd-01fb98177999.jpeg?im_w=720',
+    'https://a0.muscache.com/im/pictures/prohost-api/Hosting-610233436358954768/original/2b1ff297-4a80-4acc-82b9-13a5e2219960.jpeg?im_w=720',
+    'https://a0.muscache.com/im/pictures/prohost-api/Hosting-610233436358954768/original/11c652b6-5f91-43c0-8f16-34660bea0e28.jpeg?im_w=720'
 ]
 
 // const seedSpotImages = num => {
