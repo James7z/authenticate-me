@@ -8,3 +8,16 @@
     margin: 0px;
     padding: 26px 36px 10px 12px;
 }
+
+.sign-up-form button {
+    width: 50%;
+    margin: 0 25%;
+}
+
+
+.sign-up-form input {
+    width: 100%;
+    border-radius: 2px;
+    height: 2em;
+    margin: 0.5em 0.5em;
+}
