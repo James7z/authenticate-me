@@ -1,5 +1,6 @@
 
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
 import { getUserBookings } from "../../store/booking";
 import DeleteBookingForm from "./DeleteBookingForm";
@@ -44,16 +45,18 @@ export default function ManageBookings() {
 
                     bookingList.map(booking => (
                         <div key={booking.id} className='nav-spot-card'>
+                            <NavLink to={`/spots/${booking.Spot.id}`} >
+                                <div className="spot-image-container">
 
-                            <div className="spot-image-container">
-                                <img className="spot-image"
-                                    src={booking.Spot.previewImage}
-                                    alt={"Image of " + booking.Spot.name}></img>
-                            </div>
-                            <div>Spot Name: {booking.Spot.name}</div>
-                            <div>Start Date: {booking.startDate}</div>
-                            <div>End Date: {booking.endDate}</div>
+                                    <img className="spot-image"
+                                        src={booking.Spot.previewImage}
+                                        alt={"Image of " + booking.Spot.name}></img>
 
+                                </div>
+                                <div>Spot Name: {booking.Spot.name}</div>
+                                <div>Start Date: {booking.startDate}</div>
+                                <div>End Date: {booking.endDate}</div>
+                            </NavLink>
                             <div className={booking.userId === currUserId && new Date(booking.startDate) >= curDate ? "normal" : "hidden"}>
                                 <span>       <OpenModalButton
                                     buttonText="Change Date"

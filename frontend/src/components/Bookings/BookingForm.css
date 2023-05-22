@@ -227,3 +227,8 @@ form {
 .spot-nav div.nav-spot-card {
     margin: ;
 }
+
+
+.nav-spot-card a {
+    text-decoration: none;
+}
