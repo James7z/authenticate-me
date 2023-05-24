@@ -6,6 +6,7 @@ import { getUserBookings } from "../../store/booking";
 import DeleteBookingForm from "./DeleteBookingForm";
 import OpenModalButton from "../OpenModalButton";
 import BookingForm from "./BookingForm";
+import BookingsModal from "./BookingFormModal";
 import './BookingForm.css';
 
 export default function ManageBookings() {
@@ -60,7 +61,7 @@ export default function ManageBookings() {
                             <div className={booking.userId === currUserId && new Date(booking.startDate) >= curDate ? "normal" : "hidden"}>
                                 <span>       <OpenModalButton
                                     buttonText="Change Date"
-                                    modalComponent={<BookingForm spotId={booking.spotId} formType="Update a User Booking" />}
+                                    modalComponent={<BookingsModal spot={booking.Spot} />}
                                 />
 
                                 </span>
