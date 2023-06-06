@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
-import { csrfFetch } from '../../store/csrf';
+//import { csrfFetch } from '../../store/csrf';
 import Calendar from 'react-calendar';
 import { differenceInCalendarDays } from 'date-fns';
 import { getSpotBookings, createBooking } from '../../store/spot'
