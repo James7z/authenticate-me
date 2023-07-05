@@ -10,6 +10,20 @@ import ManageSpots from "./components/Spots/ManageSpots";
 import EditSpotForm from "./components/Spots/EditSpotForm";
 import ManageReviews from "./components/Reviews/ManageReviews";
 import ManageBookings from "./components/Bookings/ManageBookings";
+import ReactGA from 'react-ga';
+import RouteChangeTracker from "./components/GoogleAnalytics/RouteChangeTracker";
+const TRACKING_ID = "G-F375Y87R47"; // YOUR_OWN_TRACKING_ID
+ReactGA.initialize(TRACKING_ID);
+
+ReactGA.event({
+  category: 'User',
+  action: 'Created an Account'
+});
+
+ReactGA.exception({
+  description: 'An error ocurred',
+  fatal: true
+});
 
 function App() {
   const dispatch = useDispatch();
@@ -50,6 +64,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      <RouteChangeTracker />
     </>
   );
 }
